@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
+using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +19,12 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Categoria>> Get()
+    public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
     {
         try
         {
             //AsNoTracking somente para Get
-            var categorias = _context.Categorias.AsNoTracking().ToList();
+            var categorias = await _context.Categorias.AsNoTracking().ToListAsync();
 
             if (categorias is null)
                 return NotFound("404: Categorias não encontradas");
@@ -38,11 +39,11 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpGet("{id:int}", Name = "ObterCategoria")]
-    public ActionResult<Categoria> Get(int id)
+    public async Task<ActionResult<Categoria>> GetAsync(int id)
     {
         try
         {
-            var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.CategoriaId == id);
 
             if (categoria is null)
                 return NotFound("404: Categoria não encontrada");
@@ -123,6 +124,20 @@ public class CategoriasController : ControllerBase
             _context.SaveChanges();
 
             return Ok(categoria);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
+
+    // Ex. Serviço MeuServico (IMeuServico poderia ser atributo do controller, mas é só exemplo)
+    [HttpGet("UsandoFromServices:MeuServico/{saudacao}")]
+    public ActionResult<string> GetSaudacaoFromServices([FromServices] IMeuServico meuServico, string saudacao) // [FromServices] é desnecessário em versões recentes do .NET
+    {
+        try
+        {
+            return meuServico.Saudacao(saudacao);
         }
         catch (Exception)
         {

@@ -18,13 +18,13 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Produto>> Get()
+    public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
     {
         try
         {
             //Optei por nao usar AsNoTracking() aqui de exemplo
             //Take pra evitar buscar milhões de valores
-            var produtos = _context.Produtos.Take(10).ToList();
+            var produtos = await _context.Produtos.Take(10).ToListAsync();
 
             if (produtos is null)
             {
@@ -63,12 +63,13 @@ public class ProdutosController : ControllerBase
         }
     }
 
+    // [FromRoute] é um Atributo de Model Binding
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public ActionResult<Produto> Get(int id)
+    public async Task<ActionResult<Produto>> GetAsync([FromRoute] int id) // [FromRoute] desnecessário
     {
         try
         {
-            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id);
 
             if (produto is null)
             {
