@@ -20,70 +20,107 @@ public class ProdutosController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> Get()
     {
-        var produtos = _context.Produtos.ToList();
-
-        if (produtos is null)
+        try
         {
-            return NotFound("404: Produtos não encontrados");
-        }
+            //Optei por nao usar AsNoTracking() aqui de exemplo
+            //Take pra evitar buscar milhões de valores
+            var produtos = _context.Produtos.Take(10).ToList();
 
-        return produtos;
+            if (produtos is null)
+            {
+                return NotFound("404: Produtos não encontrados");
+            }
+
+            return produtos;
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
     [HttpGet("{id:int}", Name = "ObterProduto")]
     public ActionResult<Produto> Get(int id)
     {
-        var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
-
-        if (produto is null)
+        try
         {
-            return NotFound("404: Produto não encontrado");
-        }
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
 
-        return produto;
+            if (produto is null)
+            {
+                return NotFound("404: Produto não encontrado");
+            }
+
+            return produto;
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
     [HttpPost]
     public ActionResult Post(Produto produto)
     {
-        if (produto is null)
-            return BadRequest();
+        try
+        {
+            if (produto is null)
+                return BadRequest("Dados inválidos");
 
-        _context.Produtos.Add(produto);
-        _context.SaveChanges();
+            _context.Produtos.Add(produto);
+            _context.SaveChanges();
 
-        return new CreatedAtRouteResult("ObterProduto",
-            new { id = produto.ProdutoId }, produto);
+            return new CreatedAtRouteResult("ObterProduto",
+                new { id = produto.ProdutoId }, produto);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
     [HttpPut("{id:int}")]
     public ActionResult Put(int id, Produto produto)
     {
-        if (id != produto.ProdutoId)
+        try
         {
-            return BadRequest();
+            if (id != produto.ProdutoId)
+            {
+                return BadRequest("Dados inválidos");
+            }
+
+            _context.Entry(produto).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(produto);
         }
-
-        _context.Entry(produto).State = EntityState.Modified;
-        _context.SaveChanges();
-
-        return Ok(produto);
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
     [HttpDelete("{id:int}")]
     public ActionResult Delete(int id)
     {
-        var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
-
-        if (produto is null)
+        try
         {
-            return NotFound("404: Produto não encontrado");
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+
+            if (produto is null)
+            {
+                return NotFound("404: Produto não encontrado");
+            }
+
+            _context.Produtos.Remove(produto);
+            _context.SaveChanges();
+
+            return Ok(produto);
         }
-
-        _context.Produtos.Remove(produto);
-        _context.SaveChanges();
-
-        return Ok(produto);
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 }
 

@@ -2,6 +2,7 @@
 using APICatalogo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Controllers;
 
@@ -19,44 +20,113 @@ public class CategoriasController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Categoria>> Get()
     {
-        var categorias = _context.Categorias.ToList();
-
-        if (categorias is null)
+        try
         {
-            return NotFound("404: Categorias não foram encontradas");
-        }
+            //AsNoTracking somente para Get
+            var categorias = _context.Categorias.AsNoTracking().ToList();
 
-        return categorias;
+            if (categorias is null)
+                return NotFound("404: Categorias não encontradas");
+
+            return categorias;
+        }
+        catch (Exception)
+        {
+            //Uso da classe StatusCodes para tratamento
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "ObterCategoria")]
     public ActionResult<Categoria> Get(int id)
     {
-        var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+        try
+        {
+            var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
 
-        if (categoria is null)
-            return NotFound("404: Categoria não encontrada");
+            if (categoria is null)
+                return NotFound("404: Categoria não encontrada");
 
-        return categoria;
+            return categoria;
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
     }
 
-    //[HttpGet("produtos-categorias")]
-    //public ActionResult GetAll()
-    //{
-    //    var categorias = _context.Categorias.ToList();
-    //    var produtos = _context.Produtos.ToList();
-
-    //    var resultado = new
-    //    {
-    //        Categoria = categorias,
-    //        Produtos = produtos
-    //    };
-
-    //    if (resultado is null)
-    //        return NotFound("404: Nenenhum resultado e nenhuma categoria encontrados");
-
-    //    return Ok(resultado);
-    //}
+    [HttpGet("categorias_produtos")]
+    public ActionResult<IEnumerable<Categoria>> GetCategoriasEProdutos()
+    {
+        try
+        {
+            //O EntityFramework usa a Biblioteca LINQ para fazer consultas avançadas
+            return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId <= 5).Take(100).ToList();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
 
 
+    [HttpPost]
+    public ActionResult Post(Categoria categoria)
+    {
+        try
+        {
+            if (categoria is null)
+                return BadRequest("Dados inválidos");
+
+            _context.Categorias.Add(categoria);
+            _context.SaveChanges();
+
+            return new CreatedAtRouteResult("ObterCategoria",
+                new { id = categoria.CategoriaId }, categoria);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
+
+    [HttpPut("{id:int}")]
+    public ActionResult Put(int id, Categoria categoria)
+    {
+        try
+        {
+            if (id != categoria.CategoriaId)
+                return BadRequest("Dados inválidos");
+
+            _context.Categorias.Update(categoria);
+            _context.SaveChanges();
+
+            return Ok(categoria);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
+
+    [HttpDelete("{id:int}")]
+    public ActionResult Delete(int id)
+    {
+        try
+        {
+            Categoria categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+
+            if (categoria is null)
+                return NotFound("404: Categoria não encontrada");
+
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
+
+            return Ok(categoria);
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
 }
