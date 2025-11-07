@@ -1,76 +1,76 @@
-Ôªø## Refer√™ncia de Data Annotations para Desenvolvedores (.NET 8)
+## ReferÍncia de Data Annotations para Desenvolvedores (.NET 8)
 
-As Data Annotations s√£o atributos usados para valida√ß√£o, formata√ß√£o e defini√ß√£o de regras em propriedades de classes de modelo no .NET. Elas facilitam a valida√ß√£o autom√°tica de dados e a gera√ß√£o de esquemas em APIs e aplica√ß√µes web.
+As Data Annotations s„o atributos usados para validaÁ„o, formataÁ„o e definiÁ„o de regras em propriedades de classes de modelo no .NET. Elas facilitam a validaÁ„o autom·tica de dados e a geraÁ„o de esquemas em APIs e aplicaÁıes web.
 
 ---
 
 ## Principais Data Annotations
 
-| Atributo                  | Categoria           | Descri√ß√£o                                             | Exemplo de Uso                                   |
+| Atributo                  | Categoria           | DescriÁ„o                                             | Exemplo de Uso                                   |
 |---------------------------|---------------------|-------------------------------------------------------|--------------------------------------------------|
-| `[Required]`              | Valida√ß√£o           | Torna o campo obrigat√≥rio.                            | `[Required] public string Nome { get; set; }`    |
-| `[StringLength]`          | Valida√ß√£o           | Define o tamanho m√°ximo e m√≠nimo de uma string.       | `[StringLength(100, MinimumLength = 3)]`         |
-| `[Range]`                 | Valida√ß√£o           | Restringe o valor a um intervalo espec√≠fico.          | `[Range(1, 100)]`                                |
-| `[EmailAddress]`          | Valida√ß√£o           | Valida se o valor √© um e-mail v√°lido.                 | `[EmailAddress]`                                 |
-| `[Key]`                   | Esquema/Banco       | Define a propriedade como chave prim√°ria.             | `[Key]`                                          |
+| `[Required]`              | ValidaÁ„o           | Torna o campo obrigatÛrio.                            | `[Required] public string Nome { get; set; }`    |
+| `[StringLength]`          | ValidaÁ„o           | Define o tamanho m·ximo e mÌnimo de uma string.       | `[StringLength(100, MinimumLength = 3)]`         |
+| `[Range]`                 | ValidaÁ„o           | Restringe o valor a um intervalo especÌfico.          | `[Range(1, 100)]`                                |
+| `[EmailAddress]`          | ValidaÁ„o           | Valida se o valor È um e-mail v·lido.                 | `[EmailAddress]`                                 |
+| `[Key]`                   | Esquema/Banco       | Define a propriedade como chave prim·ria.             | `[Key]`                                          |
 | `[ForeignKey]`            | Esquema/Banco       | Define uma chave estrangeira.                         | `[ForeignKey("CategoriaId")]`                    |
-| `[Display]`               | Formata√ß√£o          | Define nome, ordem, prompt, etc. para exibi√ß√£o.       | `[Display(Name = "Nome do Produto")]`            |
-| `[DataType]`              | Formata√ß√£o          | Especifica o tipo de dado (Data, Moeda, etc).         | `[DataType(DataType.Date)]`                      |
+| `[Display]`               | FormataÁ„o          | Define nome, ordem, prompt, etc. para exibiÁ„o.       | `[Display(Name = "Nome do Produto")]`            |
+| `[DataType]`              | FormataÁ„o          | Especifica o tipo de dado (Data, Moeda, etc).         | `[DataType(DataType.Date)]`                      |
 | `[NotMapped]`             | Esquema/Banco       | Ignora a propriedade no mapeamento do banco.          | `[NotMapped]`                                    |
-| `[RegularExpression]`     | Valida√ß√£o           | Valida usando uma express√£o regular.                  | `[RegularExpression(@"^\d{4}$")]`                |
+| `[RegularExpression]`     | ValidaÁ„o           | Valida usando uma express„o regular.                  | `[RegularExpression(@"^\d{4}$")]`                |
 
 ---
 
-## 1. Atributos de Valida√ß√£o
+## 1. Atributos de ValidaÁ„o
 
-| Atributo                  | Descri√ß√£o                                             | Exemplo de Uso                                   |
+| Atributo                  | DescriÁ„o                                             | Exemplo de Uso                                   |
 |---------------------------|-------------------------------------------------------|--------------------------------------------------|
-| `[Required]`              | Torna o campo obrigat√≥rio.                            | `[Required] public string Nome { get; set; }`    |
-| `[StringLength]`          | Define o tamanho m√°ximo e m√≠nimo de uma string.       | `[StringLength(100, MinimumLength = 3)]`         |
-| `[MaxLength]`             | Define o tamanho m√°ximo de uma string ou array.       | `[MaxLength(50)]`                                |
-| `[MinLength]`             | Define o tamanho m√≠nimo de uma string ou array.       | `[MinLength(2)]`                                 |
-| `[Range]`                 | Restringe o valor a um intervalo espec√≠fico.          | `[Range(1, 100)]`                                |
-| `[EmailAddress]`          | Valida se o valor √© um e-mail v√°lido.                 | `[EmailAddress]`                                 |
-| `[Phone]`                 | Valida se o valor √© um telefone v√°lido.               | `[Phone]`                                        |
-| `[Url]`                   | Valida se o valor √© uma URL v√°lida.                   | `[Url]`                                          |
+| `[Required]`              | Torna o campo obrigatÛrio.                            | `[Required] public string Nome { get; set; }`    |
+| `[StringLength]`          | Define o tamanho m·ximo e mÌnimo de uma string.       | `[StringLength(100, MinimumLength = 3)]`         |
+| `[MaxLength]`             | Define o tamanho m·ximo de uma string ou array.       | `[MaxLength(50)]`                                |
+| `[MinLength]`             | Define o tamanho mÌnimo de uma string ou array.       | `[MinLength(2)]`                                 |
+| `[Range]`                 | Restringe o valor a um intervalo especÌfico.          | `[Range(1, 100)]`                                |
+| `[EmailAddress]`          | Valida se o valor È um e-mail v·lido.                 | `[EmailAddress]`                                 |
+| `[Phone]`                 | Valida se o valor È um telefone v·lido.               | `[Phone]`                                        |
+| `[Url]`                   | Valida se o valor È uma URL v·lida.                   | `[Url]`                                          |
 | `[Compare]`               | Compara dois campos para igualdade.                   | `[Compare("Senha")]`                             |
-| `[CreditCard]`            | Valida se o valor √© um cart√£o de cr√©dito v√°lido.      | `[CreditCard]`                                   |
-| `[RegularExpression]`     | Valida usando uma express√£o regular.                  | `[RegularExpression(@"^\d{4}$")]`                |
+| `[CreditCard]`            | Valida se o valor È um cart„o de crÈdito v·lido.      | `[CreditCard]`                                   |
+| `[RegularExpression]`     | Valida usando uma express„o regular.                  | `[RegularExpression(@"^\d{4}$")]`                |
 
 ---
 
-## 2. Atributos de Formata√ß√£o
+## 2. Atributos de FormataÁ„o
 
-| Atributo                  | Descri√ß√£o                                              | Exemplo de Uso                                   |
+| Atributo                  | DescriÁ„o                                              | Exemplo de Uso                                   |
 |---------------------------|--------------------------------------------------------|--------------------------------------------------|
-| `[Display]`               | Define nome, ordem, prompt, etc. para exibi√ß√£o.        | `[Display(Name = "Nome do Produto")]`            |
-| `[DisplayFormat]`         | Define formata√ß√£o para exibi√ß√£o e edi√ß√£o.              | `[DisplayFormat(DataFormatString = "{0:C}")]`    |
+| `[Display]`               | Define nome, ordem, prompt, etc. para exibiÁ„o.        | `[Display(Name = "Nome do Produto")]`            |
+| `[DisplayFormat]`         | Define formataÁ„o para exibiÁ„o e ediÁ„o.              | `[DisplayFormat(DataFormatString = "{0:C}")]`    |
 | `[DataType]`              | Especifica o tipo de dado (Data, Moeda, etc).          | `[DataType(DataType.Date)]`                      |
-| `[ScaffoldColumn]`        | Controla se a coluna ser√° exibida em scaffolding.      | `[ScaffoldColumn(false)]`                        |
+| `[ScaffoldColumn]`        | Controla se a coluna ser· exibida em scaffolding.      | `[ScaffoldColumn(false)]`                        |
 
 ---
 
 ## 3. Atributos de Esquema (Banco de Dados)
 
-| Atributo                  | Descri√ß√£o                                              | Exemplo de Uso                                          |
+| Atributo                  | DescriÁ„o                                              | Exemplo de Uso                                          |
 |---------------------------|--------------------------------------------------------|---------------------------------------------------------|
-| `[Key]`                   | Define a propriedade como chave prim√°ria.              | `[Key]`                                                 |
-| `[Timestamp]`             | Marca a propriedade para controle de concorr√™ncia.     | `[Timestamp]`                                           |
+| `[Key]`                   | Define a propriedade como chave prim·ria.              | `[Key]`                                                 |
+| `[Timestamp]`             | Marca a propriedade para controle de concorrÍncia.     | `[Timestamp]`                                           |
 | `[ForeignKey]`            | Define uma chave estrangeira.                          | `[ForeignKey("CategoriaId")]`                           |
-| `[InverseProperty]`       | Define a propriedade de navega√ß√£o inversa.             | `[InverseProperty("Produtos")]`                         |
+| `[InverseProperty]`       | Define a propriedade de navegaÁ„o inversa.             | `[InverseProperty("Produtos")]`                         |
 | `[NotMapped]`             | Ignora a propriedade no mapeamento do banco.           | `[NotMapped]`                                           |
-| `[DatabaseGenerated]`     | Controla a gera√ß√£o do valor (Identity, Computed).      | `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` |
+| `[DatabaseGenerated]`     | Controla a geraÁ„o do valor (Identity, Computed).      | `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` |
 
 ---
 
-## Dicas √öteis
+## Dicas ⁄teis
 
-- Combine m√∫ltiplos atributos para valida√ß√µes mais completas.
-- Para valida√ß√µes personalizadas, herde de `ValidationAttribute`.
-- As Data Annotations s√£o utilizadas pelo model binding, valida√ß√£o e scaffolding no ASP.NET Core.
+- Combine m˙ltiplos atributos para validaÁıes mais completas.
+- Para validaÁıes personalizadas, herde de `ValidationAttribute`.
+- As Data Annotations s„o utilizadas pelo model binding, validaÁ„o e scaffolding no ASP.NET Core.
 
 ---
 
-**Refer√™ncias:**
-- [Documenta√ß√£o Oficial: Data Annotations](https://learn.microsoft.com/pt-br/dotnet/api/system.componentmodel.dataannotations)
-- [Valida√ß√£o de Modelos no ASP.NET Core](https://learn.microsoft.com/pt-br/aspnet/core/mvc/models/validation)
+**ReferÍncias:**
+- [DocumentaÁ„o Oficial: Data Annotations](https://learn.microsoft.com/pt-br/dotnet/api/system.componentmodel.dataannotations)
+- [ValidaÁ„o de Modelos no ASP.NET Core](https://learn.microsoft.com/pt-br/aspnet/core/mvc/models/validation)
