@@ -38,5 +38,3 @@
 | ServiceUnavailable()  | 503    | Serviço indisponível                      |
 | GatewayTimeout()      | 504    | Tempo de resposta do gateway esgotado     |
 | StatusCode(xxx)       | xxx    | Retorna qualquer código de status desejado |
-
-````````

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class ProdutosController : ControllerBase
 {
@@ -39,7 +39,31 @@ public class ProdutosController : ControllerBase
         }
     }
 
-    [HttpGet("{id:int}", Name = "ObterProduto")]
+    // "/primeiro" em vez de "primeiro" ignora o Route
+    [HttpGet("primeiro")]
+    [HttpGet("/primeiro")]
+    public ActionResult<Produto> GetPrimeiro()
+    {
+        try
+        {
+            //Optei por nao usar AsNoTracking() aqui de exemplo
+            //Take pra evitar buscar milhões de valores
+            var primeiroProduto = _context.Produtos.FirstOrDefault();
+
+            if (primeiroProduto is null)
+            {
+                return NotFound("404: Produtos não encontrados");
+            }
+
+            return primeiroProduto;
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+        }
+    }
+
+    [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
     public ActionResult<Produto> Get(int id)
     {
         try
@@ -60,7 +84,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Post(Produto produto)
+    public IActionResult Post(Produto produto)
     {
         try
         {
@@ -80,7 +104,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult Put(int id, Produto produto)
+    public IActionResult Put(int id, Produto produto)
     {
         try
         {
@@ -101,7 +125,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
     {
         try
         {

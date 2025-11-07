@@ -34,7 +34,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-// Mapeia Controllers Existentes
+// Mapeia Atributos dos Controllers Existentes
 app.MapControllers();
 
 app.Run();

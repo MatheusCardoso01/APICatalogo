@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class CategoriasController : ControllerBase
 {
@@ -71,7 +71,7 @@ public class CategoriasController : ControllerBase
 
 
     [HttpPost]
-    public ActionResult Post(Categoria categoria)
+    public IActionResult Post(Categoria categoria)
     {
         try
         {
@@ -91,7 +91,7 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult Put(int id, Categoria categoria)
+    public IActionResult Put(int id, Categoria categoria)
     {
         try
         {
@@ -110,7 +110,7 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
     {
         try
         {
