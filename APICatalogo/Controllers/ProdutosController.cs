@@ -11,32 +11,28 @@ namespace APICatalogo.Controllers;
 public class ProdutosController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ILogger _logger;
 
-    public ProdutosController(AppDbContext context)
+    public ProdutosController(AppDbContext context, ILogger<ProdutosController> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
     {
-        try // o uso de middleware é melhor para tratamento de erros, ver Extensions/ApiExceptionMiddlewareExtensions.cs
-        {
-            //Optei por nao usar AsNoTracking() aqui de exemplo
-            //Take pra evitar buscar milhões de valores
-            var produtos = await _context.Produtos.Take(10).ToListAsync();
 
-            if (produtos is null)
-            {
-                return NotFound("404: Produtos não encontrados");
-            }
+        //Optei por nao usar AsNoTracking() aqui, ver CategoriasController para exemplo
+        //Take pra evitar buscar milhões de valores
+        var produtos = await _context.Produtos.Take(10).ToListAsync();
 
-            return produtos;
-        }
-        catch (Exception)
+        if (produtos is null)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
+            return NotFound("404: Produtos não encontrados");
         }
+
+        return produtos;
     }
 
     // "/primeiro" em vez de "primeiro" ignora o Route
@@ -44,7 +40,7 @@ public class ProdutosController : ControllerBase
     [HttpGet("/primeiro")]
     public ActionResult<Produto> GetPrimeiro()
     {
-        //throw new DataMisalignedException("Erro de Exemplo - Tratamento via Middleware");
+        //teste de nullpointerexception para ver o middleware de tratamento de exceções em ação
         string[] teste = null;
         if (teste.Length > 0)
         {

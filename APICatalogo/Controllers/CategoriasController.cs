@@ -1,4 +1,5 @@
 ﻿using APICatalogo.Context;
+using APICatalogo.Filters;
 using APICatalogo.Models;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
@@ -11,12 +12,16 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class CategoriasController : ControllerBase
 {
+    // atributos
     private readonly AppDbContext _context; // acessar o banco de dados
+    private readonly ILogger _logger;
     //private readonly IConfiguration _configuration; // acessar o appsettings.json
 
-    public CategoriasController(AppDbContext context, IConfiguration configuration)
+    // contrutor
+    public CategoriasController(AppDbContext context, ILogger<CategoriasController> logger)
     {
         _context = context;
+        _logger = logger;
         //_configuration = configuration;
     }
 
@@ -32,23 +37,16 @@ public class CategoriasController : ControllerBase
     //}
 
     [HttpGet]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
     public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
     {
-        try // O uso de middleware é melhor para tratamento de erros, ver Extensions/ApiExceptionMiddlewareExtensions.cs
-        {
-            //AsNoTracking somente para Get
-            var categorias = await _context.Categorias.AsNoTracking().ToListAsync();
 
-            if (categorias is null)
-                return NotFound("404: Categorias não encontradas");
+        var categorias = await _context.Categorias.AsNoTracking().ToListAsync();
 
-            return categorias;
-        }
-        catch (Exception)
-        {
-            //Uso da classe StatusCodes para tratamento
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        if (categorias is null)
+            return NotFound("404: Categorias não encontradas");
+
+        return categorias;
     }
 
     [HttpGet("{id:int}", Name = "ObterCategoria")]
@@ -57,8 +55,13 @@ public class CategoriasController : ControllerBase
 
         var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.CategoriaId == id);
 
+
         if (categoria is null)
+        {
+            _logger.LogInformation($"LOG: ================== GET api/Categorias/id = {id} NOT FOUND ==================");
+
             return NotFound("404: Categoria não encontrada");
+        }
 
         return categoria;
     }

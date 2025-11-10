@@ -1,5 +1,7 @@
 using APICatalogo.Context;
 using APICatalogo.Extensions;
+using APICatalogo.Filters;
+using APICatalogo.Logging;
 using APICatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -8,10 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//Add Controllers
-builder.Services.AddControllers().AddJsonOptions(options =>
+// Add Controllers
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(ApiExceptionFilter));   
+})
+.AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
 );
+
+// Add global filter de logging
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 // Add Services personalizados
 builder.Services.AddTransient<IMeuServico, MeuServico>();
@@ -25,8 +34,13 @@ string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConne
 // acessar valor de 'appsettings.json': var valor1 = builder.Configuration["chave1"];
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-                    options.UseMySql(mySqlConnection, 
+                    options.UseMySql(mySqlConnection,
                     ServerVersion.AutoDetect(mySqlConnection)));
+
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
 
 var app = builder.Build();
 

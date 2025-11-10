@@ -1,0 +1,26 @@
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (42ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 17:42:02
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 17:42:02
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Error: 0 - Ocorreu uma exceção não tratada: Status Code 500

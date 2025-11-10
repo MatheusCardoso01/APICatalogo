@@ -13,7 +13,7 @@ public class Produto : IValidatableObject
 
     [Required]
     [StringLength(80, ErrorMessage = "O nome deve ter entre 2 e 80 caracteres", MinimumLength = 5)]
-    [PrimeiraLetraMaiuscula] //Data Annotation customizada
+    [PrimeiraLetraMaiuscula] // Data Annotation customizada
     public string? Nome { get; set; }
 
     [Required]

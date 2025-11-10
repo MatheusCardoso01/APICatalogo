@@ -87,13 +87,13 @@ O Model Binding do ASP.NET Core converte automaticamente dados da requisição HTT
 ## Principais Atributos de Model Binding
 
 | Atributo         | Descrição                                                                                   |
-|------------------|--------------------------------------------------------------------------------------------|
-| `[FromQuery]`    | Obtém o valor do parâmetro a partir da query string da URL (ex: `?nome=valor`).            |
-| `[FromRoute]`    | Obtém o valor do parâmetro a partir dos dados da rota definidos na URL.                    |
+|------------------|---------------------------------------------------------------------------------------------|
+| `[FromQuery]`    | Obtém o valor do parâmetro a partir da query string da URL (ex: `?nome=valor`).             |
+| `[FromRoute]`    | Obtém o valor do parâmetro a partir dos dados da rota definidos na URL.                     |
 | `[FromBody]`     | Obtém e desserializa o valor do parâmetro a partir do corpo da requisição (geralmente JSON).|
-| `[FromForm]`     | Obtém o valor do parâmetro a partir dos dados enviados via formulário (form-data).         |
-| `[FromHeader]`   | Obtém o valor do parâmetro a partir de um header HTTP específico da requisição.            |
-| `[FromServices]` | Injeta uma instância de serviço registrado no container de dependência no parâmetro.       |
+| `[FromForm]`     | Obtém o valor do parâmetro a partir dos dados enviados via formulário (form-data).          |
+| `[FromHeader]`   | Obtém o valor do parâmetro a partir de um header HTTP específico da requisição.             |
+| `[FromServices]` | Injeta uma instância de serviço registrado no container de dependência no parâmetro.        |
 
 ---
 
