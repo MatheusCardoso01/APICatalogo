@@ -11,17 +11,30 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class CategoriasController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext _context; // acessar o banco de dados
+    //private readonly IConfiguration _configuration; // acessar o appsettings.json
 
-    public CategoriasController(AppDbContext context)
+    public CategoriasController(AppDbContext context, IConfiguration configuration)
     {
         _context = context;
+        //_configuration = configuration;
     }
+
+    //[HttpGet("LerArquivoConfiguracao")] // lê informações do appsettings.json
+    //public string GetValores()
+    //{ 
+    //    var valor1 = _configuration["chave1"];
+    //    var valor2 = _configuration["chave2"];
+
+    //    var secao1 = _configuration["secao1:chave2"];
+
+    //    return $"chave1 = {valor1} \nchave2 = {valor2} \nsecao1 = {secao1}";
+    //}
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
     {
-        try
+        try // O uso de middleware é melhor para tratamento de erros, ver Extensions/ApiExceptionMiddlewareExtensions.cs
         {
             //AsNoTracking somente para Get
             var categorias = await _context.Categorias.AsNoTracking().ToListAsync();
@@ -41,107 +54,70 @@ public class CategoriasController : ControllerBase
     [HttpGet("{id:int}", Name = "ObterCategoria")]
     public async Task<ActionResult<Categoria>> GetAsync(int id)
     {
-        try
-        {
-            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.CategoriaId == id);
 
-            if (categoria is null)
-                return NotFound("404: Categoria não encontrada");
+        var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.CategoriaId == id);
 
-            return categoria;
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        if (categoria is null)
+            return NotFound("404: Categoria não encontrada");
+
+        return categoria;
     }
 
     [HttpGet("categorias_produtos")]
     public ActionResult<IEnumerable<Categoria>> GetCategoriasEProdutos()
     {
-        try
-        {
-            //O EntityFramework usa a Biblioteca LINQ para fazer consultas avançadas
-            return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId <= 5).Take(100).ToList();
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        //O EntityFramework usa a Biblioteca LINQ para fazer consultas avançadas
+        return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId <= 5).Take(100).ToList();
     }
 
 
     [HttpPost]
     public IActionResult Post(Categoria categoria)
     {
-        try
-        {
-            if (categoria is null)
-                return BadRequest("Dados inválidos");
 
-            _context.Categorias.Add(categoria);
-            _context.SaveChanges();
+        if (categoria is null)
+            return BadRequest("Dados inválidos");
 
-            return new CreatedAtRouteResult("ObterCategoria",
-                new { id = categoria.CategoriaId }, categoria);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        _context.Categorias.Add(categoria);
+        _context.SaveChanges();
+
+        return new CreatedAtRouteResult("ObterCategoria",
+            new { id = categoria.CategoriaId }, categoria);
     }
 
     [HttpPut("{id:int}")]
     public IActionResult Put(int id, Categoria categoria)
     {
-        try
-        {
-            if (id != categoria.CategoriaId)
-                return BadRequest("Dados inválidos");
 
-            _context.Categorias.Update(categoria);
-            _context.SaveChanges();
+        if (id != categoria.CategoriaId)
+            return BadRequest("Dados inválidos");
 
-            return Ok(categoria);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        _context.Categorias.Update(categoria);
+        _context.SaveChanges();
+
+        return Ok(categoria);
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        try
-        {
-            Categoria categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
 
-            if (categoria is null)
-                return NotFound("404: Categoria não encontrada");
+        Categoria categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
 
-            _context.Categorias.Remove(categoria);
-            _context.SaveChanges();
+        if (categoria is null)
+            return NotFound("404: Categoria não encontrada");
 
-            return Ok(categoria);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        _context.Categorias.Remove(categoria);
+        _context.SaveChanges();
+
+        return Ok(categoria);
     }
 
     // Ex. Serviço MeuServico (IMeuServico poderia ser atributo do controller, mas é só exemplo)
     [HttpGet("UsandoFromServices:MeuServico/{saudacao}")]
     public ActionResult<string> GetSaudacaoFromServices([FromServices] IMeuServico meuServico, string saudacao) // [FromServices] é desnecessário em versões recentes do .NET
     {
-        try
-        {
-            return meuServico.Saudacao(saudacao);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro inesperado");
-        }
+        return meuServico.Saudacao(saudacao);
     }
+
 }
