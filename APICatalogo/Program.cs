@@ -2,6 +2,7 @@ using APICatalogo.Context;
 using APICatalogo.Extensions;
 using APICatalogo.Filters;
 using APICatalogo.Logging;
+using APICatalogo.Repositories;
 using APICatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -21,6 +22,10 @@ builder.Services.AddControllers(options =>
 
 // Add global filter de logging
 builder.Services.AddScoped<ApiLoggingFilter>();
+
+// Add Repositories personalizados
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 // Add Services personalizados
 builder.Services.AddTransient<IMeuServico, MeuServico>();

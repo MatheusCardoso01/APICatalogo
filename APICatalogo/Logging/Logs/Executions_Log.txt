@@ -24,3 +24,189 @@ Information: 0 - 17:42:02
 Information: 0 - Status Code: 200
 Information: 0 - ####################################################
 Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:40:58
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:40:59
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (26ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+Information: 20101 - Executed DbCommand (41ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c0`.`CategoriaId`, `c0`.`ImageUrl`, `c0`.`Nome`, `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM (
+    SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+    FROM `Categorias` AS `c`
+    WHERE `c`.`CategoriaId` <= 20
+    LIMIT @__p_0
+) AS `c0`
+LEFT JOIN `Produtos` AS `p` ON `c0`.`CategoriaId` = `p`.`CategoriaId`
+ORDER BY `c0`.`CategoriaId`
+Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+LIMIT @__p_0
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (61ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Categorias` (`ImageUrl`, `Nome`)
+VALUES (@p0, @p1);
+SELECT `CategoriaId`
+FROM `Categorias`
+WHERE ROW_COUNT() = 1 AND `CategoriaId` = LAST_INSERT_ID();
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:15
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:15
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (40ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Categorias`
+WHERE `CategoriaId` = @p0;
+SELECT ROW_COUNT();
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:36
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:36
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+Information: 20101 - Executed DbCommand (72ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c0`.`CategoriaId`, `c0`.`ImageUrl`, `c0`.`Nome`, `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM (
+    SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+    FROM `Categorias` AS `c`
+    WHERE `c`.`CategoriaId` <= 20
+    LIMIT @__p_0
+) AS `c0`
+LEFT JOIN `Produtos` AS `p` ON `c0`.`CategoriaId` = `p`.`CategoriaId`
+ORDER BY `c0`.`CategoriaId`
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:34:51
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:34:51
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (80ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 300), @p2='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Categorias` (`CategoriaId`, `ImageUrl`, `Nome`)
+VALUES (@p0, @p1, @p2);
+Information: 20101 - Executed DbCommand (57ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 300), @p4='?' (DbType = Int32), @p5='?' (Size = 300), @p6='?' (Size = 80), @p7='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Produtos` (`ProdutoId`, `CategoriaId`, `DataCadastro`, `Descricao`, `Estoque`, `ImageUrl`, `Nome`, `Preco`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Warning: 10103 - The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (47ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Produtos` SET `CategoriaId` = @p0, `DataCadastro` = @p1, `Descricao` = @p2, `Estoque` = @p3, `ImageUrl` = @p4, `Nome` = @p5, `Preco` = @p6
+WHERE `ProdutoId` = @p7;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Produtos`
+WHERE `ProdutoId` = @p0;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`

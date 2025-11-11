@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
+using APICatalogo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,29 +11,26 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class ProdutosController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IProdutoRepository _repository;
     private readonly ILogger _logger;
 
-    public ProdutosController(AppDbContext context, ILogger<ProdutosController> logger)
+    public ProdutosController(IProdutoRepository repository, ILogger<ProdutosController> logger)
     {
-        _context = context;
+        _repository = repository;
         _logger = logger;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
+    public ActionResult<IEnumerable<Produto>> Get()
     {
-
-        //Optei por nao usar AsNoTracking() aqui, ver CategoriasController para exemplo
-        //Take pra evitar buscar milhões de valores
-        var produtos = await _context.Produtos.Take(10).ToListAsync();
+        var produtos = _repository.GetProdutos();
 
         if (produtos is null)
         {
-            return NotFound("404: Produtos não encontrados");
+            return NotFound($"Não Encontrado");
         }
 
-        return produtos;
+        return Ok(produtos);
     }
 
     // "/primeiro" em vez de "primeiro" ignora o Route
@@ -40,38 +38,30 @@ public class ProdutosController : ControllerBase
     [HttpGet("/primeiro")]
     public ActionResult<Produto> GetPrimeiro()
     {
-        //teste de nullpointerexception para ver o middleware de tratamento de exceções em ação
-        string[] teste = null;
-        if (teste.Length > 0)
-        {
-        }
-
-        //Optei por nao usar AsNoTracking() aqui de exemplo
-        //Take pra evitar buscar milhões de valores
-        var primeiroProduto = _context.Produtos.FirstOrDefault();
+        var primeiroProduto = _repository.GetPrimeiro();
 
         if (primeiroProduto is null)
         {
-            return NotFound("404: Produtos não encontrados");
+            return NotFound($"Não Encontrado");
         }
 
-        return primeiroProduto;
+        return Ok(primeiroProduto);
 
     }
 
     // [FromRoute] é um Atributo de Model Binding
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public async Task<ActionResult<Produto>> GetAsync([FromRoute] int id) // [FromRoute] desnecessário
+    public ActionResult<Produto> Get([FromRoute] int id) // [FromRoute] desnecessário
     {
 
-        var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.ProdutoId == id);
+        var produto = _repository.GetProduto(id);
 
         if (produto is null)
         {
-            return NotFound("404: Produto não encontrado");
+            return NotFound($"Não Encontrado");
         }
 
-        return produto;
+        return Ok(produto);
 
     }
 
@@ -82,12 +72,10 @@ public class ProdutosController : ControllerBase
         if (produto is null)
             return BadRequest("Dados inválidos");
 
-        _context.Produtos.Add(produto);
-        _context.SaveChanges();
+        var produtoModificado = _repository.CreateProduto(produto);
 
         return new CreatedAtRouteResult("ObterProduto",
-            new { id = produto.ProdutoId }, produto);
-
+            new { id = produtoModificado.ProdutoId }, produtoModificado);
     }
 
     [HttpPut("{id:int}")]
@@ -99,8 +87,7 @@ public class ProdutosController : ControllerBase
             return BadRequest("Dados inválidos");
         }
 
-        _context.Entry(produto).State = EntityState.Modified;
-        _context.SaveChanges();
+        _repository.UpdateProduto(produto);
 
         return Ok(produto);
 
@@ -110,18 +97,14 @@ public class ProdutosController : ControllerBase
     public IActionResult Delete(int id)
     {
 
-        var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+        var produto = _repository.DeleteProduto(id);
 
         if (produto is null)
         {
-            return NotFound("404: Produto não encontrado");
+            return NotFound($"Não Encontrado");
         }
 
-        _context.Produtos.Remove(produto);
-        _context.SaveChanges();
-
         return Ok(produto);
-
     }
 }
 
