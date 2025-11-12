@@ -1,4 +1,6 @@
 ﻿using APICatalogo.Context;
+using APICatalogo.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Repositories
 {
@@ -14,7 +16,7 @@ namespace APICatalogo.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().AsNoTracking().ToList();
         }
 
         public T? Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
@@ -25,7 +27,6 @@ namespace APICatalogo.Repositories
         public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChanges();
 
             return entity;
         }
@@ -33,7 +34,6 @@ namespace APICatalogo.Repositories
         public T Update(T entity)
         {
             _context.Set<T>().Update(entity); // outro jeito de fazer o update
-            _context.SaveChanges();
 
             return entity;
         }
@@ -41,7 +41,6 @@ namespace APICatalogo.Repositories
         public T Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
 
             return entity;
         }

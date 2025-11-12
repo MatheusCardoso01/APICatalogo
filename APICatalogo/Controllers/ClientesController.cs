@@ -1,5 +1,5 @@
 ﻿using APICatalogo.Models;
-using APICatalogo.Repositories;
+using APICatalogo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +9,17 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class ClientesController : ControllerBase
 {
-    private readonly IClienteRepository _repository;
+    private readonly IUnityOfWork _uof;
 
-    public ClientesController(IClienteRepository repository)
+    public ClientesController(IUnityOfWork uof)
     {
-        _repository = repository;
+        _uof = uof;
     }
 
     [HttpGet]
     public ActionResult<IEnumerable<Cliente>> GetAll()
     { 
-        var clientes = _repository.GetAll();
+        var clientes = _uof.ClienteRepository.GetAll();
 
         if (clientes is null)
         {
@@ -32,7 +32,7 @@ public class ClientesController : ControllerBase
     [HttpGet("{id:int}", Name = "ObterCliente")]
     public ActionResult<Cliente> Get(int id)
     {
-        var cliente = _repository.Get(c => c.ClienteId == id);
+        var cliente = _uof.ClienteRepository.Get(c => c.ClienteId == id);
 
         if (cliente is null)
         {
@@ -50,7 +50,8 @@ public class ClientesController : ControllerBase
             return BadRequest($"Dados inválidos");
         }
 
-        var clienteNovo = _repository.Create(cliente);
+        var clienteNovo = _uof.ClienteRepository.Create(cliente);
+        _uof.Commit();
 
         return new CreatedAtRouteResult("ObterCliente",
             new { id = clienteNovo.ClienteId }, clienteNovo);
@@ -64,7 +65,8 @@ public class ClientesController : ControllerBase
             return BadRequest($"Dados inválidos");
         }
 
-        _repository.Update(cliente);
+        _uof.ClienteRepository.Update(cliente);
+        _uof.Commit();
 
         return Ok(cliente);
     }
@@ -72,14 +74,15 @@ public class ClientesController : ControllerBase
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var cliente = _repository.Get(p => p.ClienteId == id);
+        var cliente = _uof.ClienteRepository.Get(p => p.ClienteId == id);
 
         if (cliente is null)
         {
             return NotFound($"Não Encontrado");
         }
 
-        var clienteDeletado = _repository.Delete(cliente);
+        var clienteDeletado = _uof.ClienteRepository.Delete(cliente);
+        _uof.Commit();
 
         return Ok(clienteDeletado);
     }

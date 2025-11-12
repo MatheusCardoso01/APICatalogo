@@ -1,7 +1,9 @@
 ﻿using APICatalogo.Context;
+using APICatalogo.DTOs;
+using APICatalogo.DTOs.Mappings;
 using APICatalogo.Filters;
 using APICatalogo.Models;
-using APICatalogo.Repositories;
+using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +31,7 @@ public class CategoriasController : ControllerBase
 
     [HttpGet]
     [ServiceFilter(typeof(ApiLoggingFilter))]
-    public async Task<ActionResult<IEnumerable<Categoria>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetAllAsync()
     {
 
         var categorias = await _repository.GetCategoriasAsync();
@@ -41,11 +43,13 @@ public class CategoriasController : ControllerBase
             return NotFound("Não Encontrado");
         }
 
-        return Ok(categorias);
+        var categoriasDTO = categorias.ToCategoriaDTOList();
+
+        return Ok(categoriasDTO);
     }
 
     [HttpGet("{id:int}", Name = "ObterCategoria")]
-    public async Task<ActionResult<Categoria>> GetAsync(int id)
+    public async Task<ActionResult<CategoriaDTO>> GetAsync(int id)
     {
 
         var categoria = await _repository.GetCategoriaAsync(id);
@@ -58,11 +62,13 @@ public class CategoriasController : ControllerBase
             return NotFound("$Não Encontrado");
         }
 
-        return Ok(categoria);
+        var categoriaDTO = categoria.ToCategoriaDTO();
+
+        return Ok(categoriaDTO);
     }
 
     [HttpGet("categorias_produtos")]
-    public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoriasEProdutosAsync()
+    public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasEProdutosAsync()
     {
         //O EntityFramework usa a Biblioteca LINQ para fazer consultas avançadas
         IEnumerable<Categoria> categoriasEProdutos = await _repository.GetCategoriasEProdutosAsync();
@@ -74,44 +80,54 @@ public class CategoriasController : ControllerBase
             return NotFound("Não Encontrado");
         }
 
-        return Ok(categoriasEProdutos);
+        var categoriasEProdutosDTO = categoriasEProdutos.ToCategoriaDTOList();
+
+        return Ok(categoriasEProdutosDTO);
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync(Categoria categoria)
+    public async Task<ActionResult<CategoriaDTO>> PostAsync(CategoriaDTO categoriaDTO)
     {
 
-        if (categoria is null) 
+        if (categoriaDTO is null) 
         {
             _logger.LogInformation($"Dados Inválidos");
 
             return BadRequest("Dados inválidos");
         }
 
+        var categoria = categoriaDTO.ToCategoria();
+
         var categoriaCriada = await _repository.CreateCategoriaAsync(categoria);
-        
+
+        var novaCategoriaDTO = categoriaCriada.ToCategoriaDTO();
+
         return new CreatedAtRouteResult("ObterCategoria",
-            new { id = categoriaCriada.CategoriaId }, categoriaCriada);
+            new { id = novaCategoriaDTO.CategoriaId }, novaCategoriaDTO);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> PutAsync(int id, Categoria categoria)
+    public async Task<ActionResult<CategoriaDTO>> PutAsync(int id, CategoriaDTO categoriaDTO)
     {
 
-        if (id != categoria.CategoriaId) 
+        if (id != categoriaDTO.CategoriaId) 
         {
             _logger.LogInformation($"Dados Inválidos");
 
             return BadRequest("Dados inválidos");
         }
 
-        await _repository.UpdateCategoriaAsync(categoria);        
+        var categoria = categoriaDTO.ToCategoria();
 
-        return Ok(categoria);
+        var categoriaCriada = await _repository.UpdateCategoriaAsync(categoria);
+
+        var categoriaAtualizadaDTO = categoriaCriada.ToCategoriaDTO();
+
+        return Ok(categoriaAtualizadaDTO);
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteAsync(int id)
+    public async Task<ActionResult<CategoriaDTO>> DeleteAsync(int id)
     {
 
         Categoria categoria = await _repository.DeleteCategoriaAsync(id);
@@ -123,7 +139,9 @@ public class CategoriasController : ControllerBase
             return NotFound("Não Encontrado");
         }
 
-        return Ok(categoria);
+        var categoriaDeletadaDTO = categoria.ToCategoriaDTO();
+
+        return Ok(categoriaDeletadaDTO);
     }
 
     // Ex. Serviço MeuServico (IMeuServico poderia ser atributo do controller, mas é só exemplo)
@@ -143,5 +161,4 @@ public class CategoriasController : ControllerBase
 
     //    return $"chave1 = {valor1} \nchave2 = {valor2} \nsecao1 = {secao1}";
     //}
-
 }

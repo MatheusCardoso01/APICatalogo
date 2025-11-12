@@ -1,7 +1,7 @@
 ﻿using APICatalogo.Models;
 using System.Runtime.InteropServices;
 
-namespace APICatalogo.Repositories;
+namespace APICatalogo.Repositories.Interfaces;
 
 public interface ICategoriaRepository
 {

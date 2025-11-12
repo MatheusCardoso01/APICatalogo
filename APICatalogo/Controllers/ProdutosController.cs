@@ -1,6 +1,6 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
-using APICatalogo.Repositories;
+using APICatalogo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +11,19 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class ProdutosController : ControllerBase
 {
-    private readonly IProdutoRepository _repository;
+    private readonly IUnityOfWork _uof;
     private readonly ILogger _logger;
 
-    public ProdutosController(IProdutoRepository repository, ILogger<ProdutosController> logger)
+    public ProdutosController(IUnityOfWork uof, ILogger<ProdutosController> logger)
     {
-        _repository = repository;
+        _uof = uof;
         _logger = logger;
     }
 
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> GetAll()
     {
-        var produtos = _repository.GetAll();
+        var produtos = _uof.ProdutoRepository.GetAll();
 
         if (produtos is null)
         {
@@ -38,7 +38,7 @@ public class ProdutosController : ControllerBase
     [HttpGet("/primeiro")]
     public ActionResult<Produto> GetPrimeiro()
     {
-        var primeiroProduto = _repository.GetPrimeiro();
+        var primeiroProduto = _uof.ProdutoRepository.GetPrimeiro();
 
         if (primeiroProduto is null)
         {
@@ -54,7 +54,7 @@ public class ProdutosController : ControllerBase
     public ActionResult<Produto> Get([FromRoute] int id) // [FromRoute] desnecessário
     {
 
-        var produto = _repository.Get(p => p.ProdutoId == id);
+        var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
 
         if (produto is null)
         {
@@ -68,7 +68,7 @@ public class ProdutosController : ControllerBase
     [HttpGet("porcategoria/{id:int}")]
     public ActionResult<IEnumerable<Produto>> GetProdutosPorCategoriaEspecifica(int id)
     {
-        var produtos = _repository.GetProdutosPorCategoriaEspecifica(id);
+        var produtos = _uof.ProdutoRepository.GetProdutosPorCategoriaEspecifica(id);
 
         if (produtos is null) 
         {
@@ -85,7 +85,8 @@ public class ProdutosController : ControllerBase
         if (produto is null)
             return BadRequest("Dados inválidos");
 
-        var produtoNovo = _repository.Create(produto);
+        var produtoNovo = _uof.ProdutoRepository.Create(produto);
+        _uof.Commit();
 
         return new CreatedAtRouteResult("ObterProduto",
             new { id = produtoNovo.ProdutoId }, produtoNovo);
@@ -100,7 +101,8 @@ public class ProdutosController : ControllerBase
             return BadRequest("Dados inválidos");
         }
 
-        _repository.Update(produto);
+        _uof.ProdutoRepository.Update(produto);
+        _uof.Commit();
 
         return Ok(produto);
 
@@ -109,14 +111,15 @@ public class ProdutosController : ControllerBase
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var produto = _repository.Get(p => p.ProdutoId == id);
+        var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
 
         if (produto is null)
         {
             return NotFound($"Não Encontrado");
         }
 
-        var produtoDeletado = _repository.Delete(produto);
+        var produtoDeletado = _uof.ProdutoRepository.Delete(produto);
+        _uof.Commit();
 
         return Ok(produtoDeletado);
     }

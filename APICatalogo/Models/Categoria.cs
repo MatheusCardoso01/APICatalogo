@@ -8,6 +8,11 @@ namespace APICatalogo.Models;
 [Table("Categorias")]
 public class Categoria
 {
+    public Categoria()
+    {
+        Produtos = new Collection<Produto>();
+    }
+
     [Key]
     public int CategoriaId { get; set; }
 
@@ -21,10 +26,4 @@ public class Categoria
 
     [JsonIgnore]
     public ICollection<Produto>? Produtos { get; set; }
-
-    public Categoria()
-    {
-        Produtos = new Collection<Produto>();
-    }
-
 }
