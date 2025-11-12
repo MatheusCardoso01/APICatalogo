@@ -26,6 +26,8 @@ builder.Services.AddScoped<ApiLoggingFilter>();
 // Add Repositories personalizados
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // Add Services personalizados
 builder.Services.AddTransient<IMeuServico, MeuServico>();

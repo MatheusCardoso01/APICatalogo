@@ -29,7 +29,7 @@ public class CategoriasController : ControllerBase
 
     [HttpGet]
     [ServiceFilter(typeof(ApiLoggingFilter))]
-    public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
+    public async Task<ActionResult<IEnumerable<Categoria>>> GetAllAsync()
     {
 
         var categorias = await _repository.GetCategoriasAsync();

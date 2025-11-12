@@ -210,3 +210,202 @@ SELECT ROW_COUNT();
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+Information: 20402 - Applying migration '20251112141918_AddClientes'.
+Information: 20101 - Executed DbCommand (65ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `Clientes` (
+    `ClienteId` int NOT NULL AUTO_INCREMENT,
+    `Nome` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `Idade` int NOT NULL,
+    `Sexo` longtext CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK_Clientes` PRIMARY KEY (`ClienteId`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20251112141918_AddClientes', '9.0.10');
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+Information: 20405 - No migrations were applied. The database is already up to date.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+Information: 20405 - No migrations were applied. The database is already up to date.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
+Information: 20101 - Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
+Information: 20101 - Executed DbCommand (31ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET=utf8mb4;
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+Information: 20402 - Applying migration '20251112143053_PopulaClientes'.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Ana Souza', 28, 'Feminino')
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Bruno Lima', 35, 'Masculino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Carla Mendes', 22, 'Feminino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Diego Pereira', 41, 'Masculino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Eduarda Silva', 30, 'Feminino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Felipe Costa', 27, 'Masculino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Gabriela Torres', 33, 'Feminino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Henrique Almeida', 45, 'Masculino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Isabela Martins', 19, 'Feminino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('João Batista', 38, 'Masculino')
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20251112143053_PopulaClientes', '9.0.10');
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+Information: 20101 - Executed DbCommand (42ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Clientes` (`ClienteId`, `Idade`, `Nome`, `Sexo`)
+VALUES (@p0, @p1, @p2, @p3);
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+WHERE `c`.`ClienteId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+Information: 20101 - Executed DbCommand (42ms) [Parameters=[@p3='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Clientes` SET `Idade` = @p0, `Nome` = @p1, `Sexo` = @p2
+WHERE `ClienteId` = @p3;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+WHERE `c`.`ClienteId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+WHERE `c`.`ClienteId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (41ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Clientes`
+WHERE `ClienteId` = @p0;
+SELECT ROW_COUNT();
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
+FROM `Clientes` AS `c`
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 12:09:31
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 12:09:31
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Warning: 10103 - The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
