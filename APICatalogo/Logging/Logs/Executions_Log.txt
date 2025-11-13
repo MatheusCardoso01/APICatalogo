@@ -3,502 +3,104 @@ Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20101 - Executed DbCommand (42ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-WHERE `c`.`CategoriaId` = @__id_0
-LIMIT 1
 Information: 14 - Now listening on: https://localhost:7052
 Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 17:42:02
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 17:42:02
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
 Information: 14 - Now listening on: https://localhost:7052
 Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:40:58
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:40:59
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (26ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-WHERE `c`.`CategoriaId` = @__id_0
-LIMIT 1
-Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
-Information: 20101 - Executed DbCommand (41ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c0`.`CategoriaId`, `c0`.`ImageUrl`, `c0`.`Nome`, `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM (
-    SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-    FROM `Categorias` AS `c`
-    WHERE `c`.`CategoriaId` <= 20
-    LIMIT @__p_0
-) AS `c0`
-LEFT JOIN `Produtos` AS `p` ON `c0`.`CategoriaId` = `p`.`CategoriaId`
-ORDER BY `c0`.`CategoriaId`
-Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
-LIMIT @__p_0
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20101 - Executed DbCommand (61ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
-INSERT INTO `Categorias` (`ImageUrl`, `Nome`)
-VALUES (@p0, @p1);
-SELECT `CategoriaId`
-FROM `Categorias`
-WHERE ROW_COUNT() = 1 AND `CategoriaId` = LAST_INSERT_ID();
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:45:15
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:45:15
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-WHERE `c`.`CategoriaId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (40ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-DELETE FROM `Categorias`
-WHERE `CategoriaId` = @p0;
-SELECT ROW_COUNT();
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:45:36
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 14:45:36
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Warning: 10102 - The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
-Information: 20101 - Executed DbCommand (72ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c0`.`CategoriaId`, `c0`.`ImageUrl`, `c0`.`Nome`, `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM (
-    SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-    FROM `Categorias` AS `c`
-    WHERE `c`.`CategoriaId` <= 20
-    LIMIT @__p_0
-) AS `c0`
-LEFT JOIN `Produtos` AS `p` ON `c0`.`CategoriaId` = `p`.`CategoriaId`
-ORDER BY `c0`.`CategoriaId`
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20101 - Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 15:34:51
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 15:34:51
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (80ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 300), @p2='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-INSERT INTO `Categorias` (`CategoriaId`, `ImageUrl`, `Nome`)
-VALUES (@p0, @p1, @p2);
-Information: 20101 - Executed DbCommand (57ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 300), @p4='?' (DbType = Int32), @p5='?' (Size = 300), @p6='?' (Size = 80), @p7='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-INSERT INTO `Produtos` (`ProdutoId`, `CategoriaId`, `DataCadastro`, `Descricao`, `Estoque`, `ImageUrl`, `Nome`, `Preco`)
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-Warning: 10103 - The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-LIMIT 1
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-LIMIT 1
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+Information: 20101 - Executed DbCommand (53ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
 WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
-Information: 20101 - Executed DbCommand (47ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+Information: 20101 - Executed DbCommand (27ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
 SET AUTOCOMMIT = 1;
 UPDATE `Produtos` SET `CategoriaId` = @p0, `DataCadastro` = @p1, `Descricao` = @p2, `Estoque` = @p3, `ImageUrl` = @p4, `Nome` = @p5, `Preco` = @p6
 WHERE `ProdutoId` = @p7;
 SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
 WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
-Information: 20101 - Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-DELETE FROM `Produtos`
-WHERE `ProdutoId` = @p0;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
 Information: 14 - Now listening on: https://localhost:7052
 Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Error: 1 - An unhandled exception has occurred while executing the request.
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
-Information: 20101 - Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
-Information: 20101 - Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
-    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-) CHARACTER SET=utf8mb4;
-Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `MigrationId`, `ProductVersion`
-FROM `__EFMigrationsHistory`
-ORDER BY `MigrationId`;
-Information: 20402 - Applying migration '20251112141918_AddClientes'.
-Information: 20101 - Executed DbCommand (65ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-CREATE TABLE `Clientes` (
-    `ClienteId` int NOT NULL AUTO_INCREMENT,
-    `Nome` longtext CHARACTER SET utf8mb4 NOT NULL,
-    `Idade` int NOT NULL,
-    `Sexo` longtext CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK_Clientes` PRIMARY KEY (`ClienteId`)
-) CHARACTER SET=utf8mb4;
-Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20251112141918_AddClientes', '9.0.10');
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
-Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
-Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
-Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
-    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-) CHARACTER SET=utf8mb4;
-Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `MigrationId`, `ProductVersion`
-FROM `__EFMigrationsHistory`
-ORDER BY `MigrationId`;
-Information: 20405 - No migrations were applied. The database is already up to date.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
-Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
-Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
-Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
-    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-) CHARACTER SET=utf8mb4;
-Information: 20101 - Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `MigrationId`, `ProductVersion`
-FROM `__EFMigrationsHistory`
-ORDER BY `MigrationId`;
-Information: 20405 - No migrations were applied. The database is already up to date.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
-Information: 20101 - Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `MigrationId`, `ProductVersion`
-FROM `__EFMigrationsHistory`
-ORDER BY `MigrationId`;
-Information: 20411 - Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
-Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT GET_LOCK('__CatalogoDB_EFMigrationsLock', 259200)
-Information: 20101 - Executed DbCommand (31ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
-    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
-    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
-    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
-) CHARACTER SET=utf8mb4;
-Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='CatalogoDB' AND TABLE_NAME='__EFMigrationsHistory';
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `MigrationId`, `ProductVersion`
-FROM `__EFMigrationsHistory`
-ORDER BY `MigrationId`;
-Information: 20402 - Applying migration '20251112143053_PopulaClientes'.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Ana Souza', 28, 'Feminino')
-Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Bruno Lima', 35, 'Masculino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Carla Mendes', 22, 'Feminino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Diego Pereira', 41, 'Masculino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Eduarda Silva', 30, 'Feminino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Felipe Costa', 27, 'Masculino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Gabriela Torres', 33, 'Feminino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Henrique Almeida', 45, 'Masculino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('Isabela Martins', 19, 'Feminino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO Clientes(Nome, Idade, Sexo) VALUES('João Batista', 38, 'Masculino')
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20251112143053_PopulaClientes', '9.0.10');
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT RELEASE_LOCK('__CatalogoDB_EFMigrationsLock')
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20101 - Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-Information: 20101 - Executed DbCommand (42ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-INSERT INTO `Clientes` (`ClienteId`, `Idade`, `Nome`, `Sexo`)
-VALUES (@p0, @p1, @p2, @p3);
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-WHERE `c`.`ClienteId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-Information: 20101 - Executed DbCommand (42ms) [Parameters=[@p3='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-UPDATE `Clientes` SET `Idade` = @p0, `Nome` = @p1, `Sexo` = @p2
-WHERE `ClienteId` = @p3;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-WHERE `c`.`ClienteId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-WHERE `c`.`ClienteId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (41ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-DELETE FROM `Clientes`
-WHERE `ClienteId` = @p0;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 12:09:31
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 12:09:31
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (56ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
-Warning: 10103 - The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-LIMIT 1
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
 WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 20101 - Executed DbCommand (50ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-WHERE `c`.`CategoriaId` = @__id_0
-LIMIT 1
-Information: 14 - Now listening on: https://localhost:7052
-Information: 14 - Now listening on: http://localhost:5179
-Information: 0 - Application started. Press Ctrl+C to shut down.
-Information: 0 - Hosting environment: Development
-Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
-Information: 0 - ### Executando -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 15:54:00
-Information: 0 - ModelState: True
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (28ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
-FROM `Categorias` AS `c`
-Information: 0 - ### Executado -> OnActionExecuted
-Information: 0 - ####################################################
-Information: 0 - 15:54:01
-Information: 0 - Status Code: 200
-Information: 0 - ####################################################
-Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-Information: 20101 - Executed DbCommand (65ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-INSERT INTO `Clientes` (`ClienteId`, `Idade`, `Nome`, `Sexo`)
-VALUES (@p0, @p1, @p2, @p3);
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-WHERE `c`.`ClienteId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (35ms) [Parameters=[@p3='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-UPDATE `Clientes` SET `Idade` = @p0, `Nome` = @p1, `Sexo` = @p2
-WHERE `ClienteId` = @p3;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SELECT `c`.`ClienteId`, `c`.`Idade`, `c`.`Nome`, `c`.`Sexo`
-FROM `Clientes` AS `c`
-WHERE `c`.`ClienteId` = @__id_0
-LIMIT 1
-Information: 20101 - Executed DbCommand (33ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-DELETE FROM `Clientes`
-WHERE `ClienteId` = @p0;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-Information: 20101 - Executed DbCommand (55ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 300), @p4='?' (DbType = Int32), @p5='?' (Size = 300), @p6='?' (Size = 80), @p7='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-INSERT INTO `Produtos` (`ProdutoId`, `CategoriaId`, `DataCadastro`, `Descricao`, `Estoque`, `ImageUrl`, `Nome`, `Preco`)
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
-Warning: 10103 - The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
-LIMIT 1
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
 WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
-Information: 20101 - Executed DbCommand (40ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+Information: 20101 - Executed DbCommand (16ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
 SET AUTOCOMMIT = 1;
 UPDATE `Produtos` SET `CategoriaId` = @p0, `DataCadastro` = @p1, `Descricao` = @p2, `Estoque` = @p3, `ImageUrl` = @p4, `Nome` = @p5, `Preco` = @p6
 WHERE `ProdutoId` = @p7;
 SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
-FROM `Produtos` AS `p`
 Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
 WHERE `p`.`ProdutoId` = @__id_0
 LIMIT 1
-Information: 20101 - Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
-SET AUTOCOMMIT = 1;
-DELETE FROM `Produtos`
-WHERE `ProdutoId` = @p0;
-SELECT ROW_COUNT();
-Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
 SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
 FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (36ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Produtos` SET `CategoriaId` = @p0, `DataCadastro` = @p1, `Descricao` = @p2, `Estoque` = @p3, `ImageUrl` = @p4, `Nome` = @p5, `Preco` = @p6
+WHERE `ProdutoId` = @p7;
+SELECT ROW_COUNT();
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (59ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (44ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (Size = 300), @p3='?' (DbType = Int32), @p4='?' (Size = 300), @p5='?' (Size = 80), @p6='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `Produtos` SET `CategoriaId` = @p0, `DataCadastro` = @p1, `Descricao` = @p2, `Estoque` = @p3, `ImageUrl` = @p4, `Nome` = @p5, `Preco` = @p6
+WHERE `ProdutoId` = @p7;
+SELECT ROW_COUNT();

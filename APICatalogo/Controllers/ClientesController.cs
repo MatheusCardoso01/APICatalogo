@@ -1,5 +1,7 @@
-﻿using APICatalogo.Models;
+﻿using APICatalogo.DTOs;
+using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +12,16 @@ namespace APICatalogo.Controllers;
 public class ClientesController : ControllerBase
 {
     private readonly IUnityOfWork _uof;
+    private readonly IMapper _mapper;
 
-    public ClientesController(IUnityOfWork uof)
+    public ClientesController(IUnityOfWork uof, IMapper mapper)
     {
         _uof = uof;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Cliente>> GetAll()
+    public ActionResult<IEnumerable<ClienteDTO>> GetAll()
     { 
         var clientes = _uof.ClienteRepository.GetAll();
 
@@ -26,11 +30,13 @@ public class ClientesController : ControllerBase
             return NotFound($"Não Encontrado");
         }
 
-        return Ok(clientes);
+        var clientesDTO = _mapper.Map<IEnumerable<ClienteDTO>>(clientes);
+
+        return Ok(clientesDTO);
     }
 
     [HttpGet("{id:int}", Name = "ObterCliente")]
-    public ActionResult<Cliente> Get(int id)
+    public ActionResult<ClienteDTO> Get(int id)
     {
         var cliente = _uof.ClienteRepository.Get(c => c.ClienteId == id);
 
@@ -39,40 +45,50 @@ public class ClientesController : ControllerBase
             return NotFound($"Não Encontrado");
         }
 
-        return Ok(cliente);
+        var clienteDTO = _mapper.Map<ClienteDTO>(cliente);
+
+        return Ok(clienteDTO);
     }
 
     [HttpPost]
-    public IActionResult Post(Cliente cliente)
+    public ActionResult<ClienteDTO> Post(ClienteDTO clienteDTO)
     {
-        if (cliente is null) 
+        if (clienteDTO is null) 
         {
             return BadRequest($"Dados inválidos");
         }
+
+        var cliente = _mapper.Map<Cliente>(clienteDTO);
 
         var clienteNovo = _uof.ClienteRepository.Create(cliente);
         _uof.Commit();
 
+        var clienteNovoDTO = _mapper.Map<ClienteDTO>(clienteNovo);
+
         return new CreatedAtRouteResult("ObterCliente",
-            new { id = clienteNovo.ClienteId }, clienteNovo);
+            new { id = clienteNovoDTO.ClienteId }, clienteNovoDTO);
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult Put(int id, Cliente cliente)
+    public ActionResult<ClienteDTO> Put(int id, ClienteDTO clienteDTO)
     {
-        if (id != cliente.ClienteId)
+        if (id != clienteDTO.ClienteId)
         {
             return BadRequest($"Dados inválidos");
         }
 
-        _uof.ClienteRepository.Update(cliente);
+        var cliente = _mapper.Map<Cliente>(clienteDTO);
+
+        var clienteAtualizado = _uof.ClienteRepository.Update(cliente);
         _uof.Commit();
 
-        return Ok(cliente);
+        var clienteAtualizadoDTO = _mapper.Map<ClienteDTO>(clienteAtualizado);
+
+        return Ok(clienteAtualizadoDTO);
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult Delete(int id)
+    public ActionResult<ClienteDTO> Delete(int id)
     {
         var cliente = _uof.ClienteRepository.Get(p => p.ClienteId == id);
 
@@ -83,6 +99,8 @@ public class ClientesController : ControllerBase
 
         var clienteDeletado = _uof.ClienteRepository.Delete(cliente);
         _uof.Commit();
+
+        var clienteDeletadoDTO = _mapper.Map<ClienteDTO>(clienteDeletado);
 
         return Ok(clienteDeletado);
     }

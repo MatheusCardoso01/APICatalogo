@@ -5,6 +5,7 @@ namespace APICatalogo.DTOs.Mappings;
 
 public static class CategoriaDTOMappingExtensions
 {
+    // Extension Methods podem ser chamados em qualquer lugar do projeto desde que o objeto seja do tipo do método de extensão
     public static CategoriaDTO? ToCategoriaDTO(this Categoria categoria)
     {
         if (categoria is null)
