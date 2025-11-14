@@ -6,6 +6,7 @@ using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -104,6 +105,39 @@ public class CategoriasController : ControllerBase
 
         return new CreatedAtRouteResult("ObterCategoria",
             new { id = novaCategoriaDTO.CategoriaId }, novaCategoriaDTO);
+    }
+
+    [HttpPatch("{id:int}/UpdatePartial")]
+    public async Task<ActionResult<CategoriaDTOUpdateResponse>> Patch(int id, JsonPatchDocument<CategoriaDTOUpdateRequest> patchCategoriaDTO)
+    {
+        if (patchCategoriaDTO is null) 
+        {
+            return BadRequest("Dados inválidos");
+        }
+
+        var categoria = await _repository.GetCategoriaAsync(id);
+
+        if (categoria is null)
+        {
+            return NotFound($"Não Encontrado");
+        }
+
+        var categoriaUpdateRequest = categoria.ToCategoriaUpdateRequest();
+
+        patchCategoriaDTO.ApplyTo(categoriaUpdateRequest, ModelState);
+
+        if (!ModelState.IsValid || !TryValidateModel(categoriaUpdateRequest))
+        { 
+            return BadRequest(ModelState);
+        }
+
+        categoria = categoria.UpdateCategoriaFromCategoriaUpdateRequest(categoriaUpdateRequest);
+
+        categoria = await _repository.UpdateCategoriaAsync(categoria);
+
+        var categoriaAtualizadaUpdateResponse = categoria.ToCategoriaUpdateResponse();
+
+        return Ok(categoriaAtualizadaUpdateResponse);
     }
 
     [HttpPut("{id:int}")]

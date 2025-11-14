@@ -3,6 +3,7 @@ using APICatalogo.Models;
 using APICatalogo.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICatalogo.Controllers;
@@ -67,6 +68,35 @@ public class ClientesController : ControllerBase
 
         return new CreatedAtRouteResult("ObterCliente",
             new { id = clienteNovoDTO.ClienteId }, clienteNovoDTO);
+    }
+
+    [HttpPatch("{id:int}/UpdatePartial")]
+    public ActionResult<ClienteDTOUpdateResponse> Patch(int id, JsonPatchDocument<ClienteDTOUpdateRequest> patchClienteDTO)
+    {
+        if (patchClienteDTO is null || id <= 0)
+        { 
+            return BadRequest("Dados inválidos");
+        }
+
+        var cliente = _uof.ClienteRepository.Get(c => c.ClienteId == id);
+
+        if (cliente is null) return NotFound($"Não Encontrado");
+
+        var clienteUpdateRequest = _mapper.Map<ClienteDTOUpdateRequest>(cliente);
+
+        patchClienteDTO.ApplyTo(clienteUpdateRequest, ModelState);
+
+        if (!ModelState.IsValid || !TryValidateModel(clienteUpdateRequest))
+        { 
+            return BadRequest(ModelState);
+        }
+
+        _mapper.Map(clienteUpdateRequest, cliente);
+
+        _uof.ClienteRepository.Update(cliente);
+        _uof.Commit();
+
+        return Ok(_mapper.Map<ClienteDTOUpdateResponse>(cliente));
     }
 
     [HttpPut("{id:int}")]

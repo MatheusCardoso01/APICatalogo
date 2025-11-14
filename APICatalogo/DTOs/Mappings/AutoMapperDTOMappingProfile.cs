@@ -5,6 +5,7 @@ namespace APICatalogo.DTOs.Mappings;
 
 public class AutoMapperDTOMappingProfile : Profile
 {
+    // progremadores experientes não recomendam o automapper, mas sim criar o próprio mapeamento manualmente
     public AutoMapperDTOMappingProfile()
     {
         // CreateMap<Categoria, CategoriaDTO>().ReverseMap();
@@ -12,5 +13,7 @@ public class AutoMapperDTOMappingProfile : Profile
         CreateMap<Cliente, ClienteDTO>().ReverseMap();
         CreateMap<Produto, ProdutoDTOUpdateRequest>().ReverseMap();
         CreateMap<Produto, ProdutoDTOUpdateResponse>().ReverseMap();
+        CreateMap<Cliente, ClienteDTOUpdateRequest>().ReverseMap();
+        CreateMap<Cliente, ClienteDTOUpdateResponse>().ReverseMap();
     }
 }
