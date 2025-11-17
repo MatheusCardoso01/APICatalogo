@@ -190,6 +190,10 @@ public class CategoriasController : ControllerBase
     [HttpGet("pagination")]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] Parameters categoriasParams)
     {
+        var todasCategorias = await _repository.GetCategoriasAsync();
+        
+        categoriasParams.SetMaxPageSize(todasCategorias.Count());
+
         var categorias = await _repository.GetCategorias(categoriasParams);
 
         if (categorias is null) return NotFound($"Não Encontrado");

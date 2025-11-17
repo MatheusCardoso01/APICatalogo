@@ -194,6 +194,8 @@ public class ProdutosController : ControllerBase
     [HttpGet("pagination")]
     public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] Parameters produtosParams)
     { 
+        produtosParams.SetMaxPageSize(_uof.ProdutoRepository.GetAll().Count());
+
         var produtos = _uof.ProdutoRepository.GetProdutos(produtosParams);
 
         if (produtos is null) return NotFound($"Não Encontrado");

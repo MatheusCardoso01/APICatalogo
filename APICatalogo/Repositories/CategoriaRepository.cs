@@ -60,8 +60,8 @@ public class CategoriaRepository : ICategoriaRepository
 
     public async Task<PagedList<Categoria>> GetCategorias(Parameters categoriasParams)
     {
-        var categorias = await GetCategoriasAsync();
-        var categoriasOrdenadas = categorias.OrderBy(c => c.CategoriaId).AsQueryable();
+        var categoriasListadas = await GetCategoriasAsync();
+        var categoriasOrdenadas = categoriasListadas.OrderBy(c => c.CategoriaId).AsQueryable();
         var categoriasPaginadas = PagedList<Categoria>.ToPagedList(categoriasOrdenadas, categoriasParams.PageNumber, categoriasParams.PageSize);
 
         return categoriasPaginadas;

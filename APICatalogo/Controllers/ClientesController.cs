@@ -138,7 +138,9 @@ public class ClientesController : ControllerBase
 
     [HttpGet("pagination")]
     public ActionResult<IEnumerable<ClienteDTO>> GetClientes([FromQuery] Parameters clientesParams)
-    { 
+    {
+        clientesParams.SetMaxPageSize(_uof.ClienteRepository.GetAll().Count());
+        
         var clientes = _uof.ClienteRepository.GetClientes(clientesParams);
 
         if (clientes is null)
