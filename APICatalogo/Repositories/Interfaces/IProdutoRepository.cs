@@ -8,4 +8,6 @@ public interface IProdutoRepository : IRepository<Produto>
     PagedList<Produto> GetProdutos(Parameters produtosParams);
     Produto GetPrimeiro();
     IEnumerable<Produto> GetProdutosPorCategoriaEspecifica(int id);
+
+    PagedList<Produto> GetProdutosFiltroPreco(ProdutosFiltroPreco produtosFiltroParams);
 }

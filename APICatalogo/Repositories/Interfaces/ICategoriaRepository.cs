@@ -13,4 +13,5 @@ public interface ICategoriaRepository
     Task<Categoria> UpdateCategoriaAsync(Categoria categoria);
     Task<Categoria> DeleteCategoriaAsync(int id);
     Task<IEnumerable<Categoria>> GetCategoriasEProdutosAsync();
+    Task<PagedList<Categoria>> GetCategoriaFiltroNome(CategoriaFiltroNome categoriaFiltroParams);
 }

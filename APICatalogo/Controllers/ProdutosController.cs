@@ -28,6 +28,8 @@ public class ProdutosController : ControllerBase
         _mapper = mapper;
     }
 
+    // endpoints
+
     [HttpGet]
     public ActionResult<IEnumerable<ProdutoDTO>> GetAll()
     {
@@ -193,11 +195,24 @@ public class ProdutosController : ControllerBase
 
     [HttpGet("pagination")]
     public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] Parameters produtosParams)
-    { 
-        produtosParams.SetMaxPageSize(_uof.ProdutoRepository.GetAll().Count());
-
+    {
         var produtos = _uof.ProdutoRepository.GetProdutos(produtosParams);
 
+        return ObterProdutosPaginados(produtos);
+    }
+
+    [HttpGet("filter/preco/pagination")]
+    public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosFilterPreco([FromQuery] ProdutosFiltroPreco produtosFilterParams)
+    {        
+        var produtos = _uof.ProdutoRepository.GetProdutosFiltroPreco(produtosFilterParams);
+
+        return ObterProdutosPaginados(produtos);
+    }
+
+    // métodos de endpoint
+
+    private ActionResult<IEnumerable<ProdutoDTO>> ObterProdutosPaginados(PagedList<Produto>? produtos)
+    {
         if (produtos is null) return NotFound($"Não Encontrado");
 
         var metadata = new
@@ -216,4 +231,5 @@ public class ProdutosController : ControllerBase
 
         return Ok(produtosDTO);
     }
+
 }

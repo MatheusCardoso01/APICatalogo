@@ -1,21 +1,18 @@
-﻿namespace APICatalogo.Pagination;
+﻿using Newtonsoft.Json.Linq;
+
+namespace APICatalogo.Pagination;
 
 public class Parameters
 {
-    private int _maxPageSize;
+    const int maxPageSize = 1000;
 
     public int PageNumber { get; set; } = 1;
 
-    private int _pageSize;
-
-    public void SetMaxPageSize(int maxPageSize)
-    { 
-        _maxPageSize = maxPageSize;
-    }
+    private int _pageSize = 10;
 
     public int PageSize
     {
         get { return _pageSize; }
-        set { _pageSize = (value > _maxPageSize || value == 0) ? _maxPageSize : value; }
+        set { _pageSize = (value > maxPageSize || value == 0) ? maxPageSize : value; }
     }
 }

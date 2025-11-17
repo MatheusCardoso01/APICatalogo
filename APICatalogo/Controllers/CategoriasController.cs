@@ -31,6 +31,7 @@ public class CategoriasController : ControllerBase
         //_configuration = configuration;
     }
 
+    // endpoints
 
     [HttpGet]
     [ServiceFilter(typeof(ApiLoggingFilter))]
@@ -190,12 +191,24 @@ public class CategoriasController : ControllerBase
     [HttpGet("pagination")]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] Parameters categoriasParams)
     {
-        var todasCategorias = await _repository.GetCategoriasAsync();
-        
-        categoriasParams.SetMaxPageSize(todasCategorias.Count());
-
         var categorias = await _repository.GetCategorias(categoriasParams);
 
+        return ObterCategoriasPaginadas(categorias);
+    }
+
+
+    [HttpGet("filter/nome/pagination")]
+    public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriaFilterNome([FromQuery] CategoriaFiltroNome categoriaFiltroParams)
+    { 
+        var categorias = await _repository.GetCategoriaFiltroNome(categoriaFiltroParams);
+
+        return ObterCategoriasPaginadas(categorias);
+    }
+
+    // métodos do endpoint
+
+    private ActionResult<IEnumerable<CategoriaDTO>> ObterCategoriasPaginadas(PagedList<Categoria>? categorias)
+    {
         if (categorias is null) return NotFound($"Não Encontrado");
 
         var metadata = new
