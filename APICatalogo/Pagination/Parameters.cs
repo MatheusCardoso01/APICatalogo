@@ -6,9 +6,9 @@ public class Parameters
 
     public int PageNumber { get; set; } = 1;
 
-    private int _pageSize; // só vale se não for definido no request
+    private int _pageSize;
 
-    public int SetMaxPageSize(int maxPageSize)
+    public void SetMaxPageSize(int maxPageSize)
     { 
         _maxPageSize = maxPageSize;
     }
