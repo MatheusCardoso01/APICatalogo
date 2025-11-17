@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -21,6 +22,14 @@ public class ProdutoRepository : Repository<Produto>, IProdutoRepository
         var primeiroProduto = _context.Produtos.FirstOrDefault();
 
         return primeiroProduto;
+    }
+
+    public PagedList<Produto> GetProdutos(Parameters produtosParams)
+    {
+        var produtosOrdenados = GetAll().OrderBy(p => p.ProdutoId).AsQueryable();
+        var produtosPaginados = PagedList<Produto>.ToPagedList(produtosOrdenados, produtosParams.PageNumber, produtosParams.PageSize);
+
+        return produtosPaginados;
     }
 
     public IEnumerable<Produto> GetProdutosPorCategoriaEspecifica(int id)

@@ -1,5 +1,6 @@
 ﻿using APICatalogo.DTOs;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -133,6 +134,33 @@ public class ClientesController : ControllerBase
         var clienteDeletadoDTO = _mapper.Map<ClienteDTO>(clienteDeletado);
 
         return Ok(clienteDeletado);
+    }
+
+    [HttpGet("pagination")]
+    public ActionResult<IEnumerable<ClienteDTO>> GetClientes([FromQuery] Parameters clientesParams)
+    { 
+        var clientes = _uof.ClienteRepository.GetClientes(clientesParams);
+
+        if (clientes is null)
+        {
+            return NotFound($"Não Encontrado");
+        }
+
+        var metadata = new
+        {
+            clientes.TotalCount,
+            clientes.PageSize,
+            clientes.CurrentPage,
+            clientes.TotalPages,
+            clientes.HasNext,
+            clientes.HasPrevious
+        };
+
+        Response.Headers.Add("X-Pagination", System.Text.Json.JsonSerializer.Serialize(metadata));
+
+        var clientesDTO = _mapper.Map<IEnumerable<ClienteDTO>>(clientes);
+
+        return Ok(clientesDTO);
     }
 
 }
