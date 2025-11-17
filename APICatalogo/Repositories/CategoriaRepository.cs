@@ -72,7 +72,7 @@ public class CategoriaRepository : ICategoriaRepository
 
         if (!string.IsNullOrEmpty(categoriaFiltroParams.Nome))
         {
-            categorias = categorias.Where(c => c.Nome.Equals(categoriaFiltroParams.Nome, StringComparison.OrdinalIgnoreCase)).AsQueryable(); // filtro
+            categorias = categorias.Where(c => c.Nome.Contains(categoriaFiltroParams.Nome, StringComparison.OrdinalIgnoreCase)).AsQueryable(); // filtro
         }
 
         var categoriasFiltradasePaginadas = PagedList<Categoria>.ToPagedList(categorias, categoriaFiltroParams.PageNumber, categoriaFiltroParams.PageSize); // paginação
