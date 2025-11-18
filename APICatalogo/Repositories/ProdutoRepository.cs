@@ -17,29 +17,29 @@ public class ProdutoRepository : Repository<Produto>, IProdutoRepository
         _context = context;
     }
 
-    public Produto GetPrimeiro()
+    public async Task<Produto> GetPrimeiroAsync()
     {
-        var primeiroProduto = _context.Produtos.FirstOrDefault();
+        var primeiroProduto = await _context.Produtos.FirstOrDefaultAsync();
 
         return primeiroProduto;
     }
 
-    public IEnumerable<Produto> GetProdutosPorCategoriaEspecifica(int id)
+    public async Task<IEnumerable<Produto>> GetProdutosPorCategoriaEspecificaAsync(int id)
     {
-        return GetAll().Where(p => p.CategoriaId == id);
+        return (await GetAllAsync()).Where(p => p.CategoriaId == id);
     }
 
-    public PagedList<Produto> GetProdutos(Parameters produtosParams)
+    public async Task<PagedList<Produto>> GetProdutosAsync(Parameters produtosParams)
     {
-        var produtosOrdenados = GetAll().OrderBy(p => p.ProdutoId).AsQueryable();
+        var produtosOrdenados = (await GetAllAsync()).OrderBy(p => p.ProdutoId).AsQueryable();
         var produtosPaginados = PagedList<Produto>.ToPagedList(produtosOrdenados, produtosParams.PageNumber, produtosParams.PageSize);
 
         return produtosPaginados;
     }
 
-    public PagedList<Produto> GetProdutosFiltroPreco(ProdutosFiltroPreco produtosFiltroParams)
+    public async Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ProdutosFiltroPreco produtosFiltroParams)
     {
-        var produtos = GetAll().AsQueryable();
+        var produtos = (await GetAllAsync()).AsQueryable();
 
         if (produtosFiltroParams.Preco.HasValue && !string.IsNullOrEmpty(produtosFiltroParams.PrecoCriterio))
         {

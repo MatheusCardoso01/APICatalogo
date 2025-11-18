@@ -5,5 +5,5 @@ namespace APICatalogo.Repositories.Interfaces;
 
 public interface IClienteRepository : IRepository<Cliente>
 {
-    PagedList<Cliente> GetClientes(Parameters clientesParams);
+    Task<PagedList<Cliente>> GetClientesAsync(Parameters clientesParams);
 }

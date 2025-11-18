@@ -23,9 +23,9 @@ public class ClientesController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<ClienteDTO>> GetAll()
+    public async Task<ActionResult<IEnumerable<ClienteDTO>>> GetAllAsync()
     { 
-        var clientes = _uof.ClienteRepository.GetAll();
+        var clientes = await _uof.ClienteRepository.GetAllAsync();
 
         if (clientes is null)
         {
@@ -38,9 +38,9 @@ public class ClientesController : ControllerBase
     }
 
     [HttpGet("{id:int}", Name = "ObterCliente")]
-    public ActionResult<ClienteDTO> Get(int id)
+    public async Task<ActionResult<ClienteDTO>> GetAsync(int id)
     {
-        var cliente = _uof.ClienteRepository.Get(c => c.ClienteId == id);
+        var cliente = await _uof.ClienteRepository.GetAsync(c => c.ClienteId == id);
 
         if (cliente is null)
         {
@@ -53,7 +53,7 @@ public class ClientesController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<ClienteDTO> Post(ClienteDTO clienteDTO)
+    public async Task<ActionResult<ClienteDTO>> PostAsync(ClienteDTO clienteDTO)
     {
         if (clienteDTO is null) 
         {
@@ -63,7 +63,8 @@ public class ClientesController : ControllerBase
         var cliente = _mapper.Map<Cliente>(clienteDTO);
 
         var clienteNovo = _uof.ClienteRepository.Create(cliente);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         var clienteNovoDTO = _mapper.Map<ClienteDTO>(clienteNovo);
 
@@ -72,14 +73,14 @@ public class ClientesController : ControllerBase
     }
 
     [HttpPatch("{id:int}/UpdatePartial")]
-    public ActionResult<ClienteDTOUpdateResponse> Patch(int id, JsonPatchDocument<ClienteDTOUpdateRequest> patchClienteDTO)
+    public async Task<ActionResult<ClienteDTOUpdateResponse>> PatchAsync(int id, JsonPatchDocument<ClienteDTOUpdateRequest> patchClienteDTO)
     {
         if (patchClienteDTO is null || id <= 0)
         { 
             return BadRequest("Dados inválidos");
         }
 
-        var cliente = _uof.ClienteRepository.Get(c => c.ClienteId == id);
+        var cliente = await _uof.ClienteRepository.GetAsync(c => c.ClienteId == id);
 
         if (cliente is null) return NotFound($"Não Encontrado");
 
@@ -95,13 +96,14 @@ public class ClientesController : ControllerBase
         _mapper.Map(clienteUpdateRequest, cliente);
 
         _uof.ClienteRepository.Update(cliente);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         return Ok(_mapper.Map<ClienteDTOUpdateResponse>(cliente));
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult<ClienteDTO> Put(int id, ClienteDTO clienteDTO)
+    public async Task<ActionResult<ClienteDTO>> PutAsync(int id, ClienteDTO clienteDTO)
     {
         if (id != clienteDTO.ClienteId)
         {
@@ -111,7 +113,7 @@ public class ClientesController : ControllerBase
         var cliente = _mapper.Map<Cliente>(clienteDTO);
 
         var clienteAtualizado = _uof.ClienteRepository.Update(cliente);
-        _uof.Commit();
+        await _uof.CommitAsync();
 
         var clienteAtualizadoDTO = _mapper.Map<ClienteDTO>(clienteAtualizado);
 
@@ -119,9 +121,9 @@ public class ClientesController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public ActionResult<ClienteDTO> Delete(int id)
+    public async Task<ActionResult<ClienteDTO>> DeleteAsync(int id)
     {
-        var cliente = _uof.ClienteRepository.Get(p => p.ClienteId == id);
+        var cliente = await _uof.ClienteRepository.GetAsync(p => p.ClienteId == id);
 
         if (cliente is null)
         {
@@ -129,7 +131,8 @@ public class ClientesController : ControllerBase
         }
 
         var clienteDeletado = _uof.ClienteRepository.Delete(cliente);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         var clienteDeletadoDTO = _mapper.Map<ClienteDTO>(clienteDeletado);
 
@@ -137,9 +140,9 @@ public class ClientesController : ControllerBase
     }
 
     [HttpGet("pagination")]
-    public ActionResult<IEnumerable<ClienteDTO>> GetClientes([FromQuery] Parameters clientesParams)
+    public async Task<ActionResult<IEnumerable<ClienteDTO>>> GetClientesAsync([FromQuery] Parameters clientesParams)
     {        
-        var clientes = _uof.ClienteRepository.GetClientes(clientesParams);
+        var clientes = await _uof.ClienteRepository.GetClientesAsync(clientesParams);
 
         if (clientes is null)
         {

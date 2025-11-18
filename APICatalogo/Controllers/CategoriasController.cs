@@ -191,7 +191,7 @@ public class CategoriasController : ControllerBase
     [HttpGet("pagination")]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] Parameters categoriasParams)
     {
-        var categorias = await _repository.GetCategorias(categoriasParams);
+        var categorias = await _repository.GetCategoriasAsync(categoriasParams);
 
         return ObterCategoriasPaginadas(categorias);
     }
@@ -200,7 +200,7 @@ public class CategoriasController : ControllerBase
     [HttpGet("filter/nome/pagination")]
     public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriaFilterNome([FromQuery] CategoriaFiltroNome categoriaFiltroParams)
     { 
-        var categorias = await _repository.GetCategoriaFiltroNome(categoriaFiltroParams);
+        var categorias = await _repository.GetCategoriaFiltroNomeAsync(categoriaFiltroParams);
 
         return ObterCategoriasPaginadas(categorias);
     }

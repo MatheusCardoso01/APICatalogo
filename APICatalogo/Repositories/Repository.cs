@@ -4,47 +4,46 @@ using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICatalogo.Repositories
+namespace APICatalogo.Repositories;
+
+public class Repository<T> : IRepository<T> where T : class
 {
-    public class Repository<T> : IRepository<T> where T : class
+
+    protected readonly AppDbContext _context;
+
+    public Repository(AppDbContext context) 
     {
+        _context = context;
+    }
 
-        protected readonly AppDbContext _context;
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        return await _context.Set<T>().AsNoTracking().ToListAsync();
+    }
 
-        public Repository(AppDbContext context) 
-        {
-            _context = context;
-        }
+    public async Task<T?> GetAsync(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+    {
+        return await _context.Set<T>().FirstOrDefaultAsync(predicate);
+    }
 
-        public IEnumerable<T> GetAll()
-        {
-            return _context.Set<T>().AsNoTracking().ToList();
-        }
+    public T Create(T entity)
+    {
+        _context.Set<T>().Add(entity);
 
-        public T? Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
-        {
-            return _context.Set<T>().FirstOrDefault(predicate);
-        }
+        return entity;
+    }
 
-        public T Create(T entity)
-        {
-            _context.Set<T>().Add(entity);
+    public T Update(T entity)
+    {
+        _context.Set<T>().Update(entity); // outro jeito de fazer o update
 
-            return entity;
-        }
+        return entity;
+    }
 
-        public T Update(T entity)
-        {
-            _context.Set<T>().Update(entity); // outro jeito de fazer o update
+    public T Delete(T entity)
+    {
+        _context.Set<T>().Remove(entity);
 
-            return entity;
-        }
-
-        public T Delete(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-
-            return entity;
-        }
+        return entity;
     }
 }

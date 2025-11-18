@@ -31,9 +31,9 @@ public class ProdutosController : ControllerBase
     // endpoints
 
     [HttpGet]
-    public ActionResult<IEnumerable<ProdutoDTO>> GetAll()
+    public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAllAsync()
     {
-        var produtos = _uof.ProdutoRepository.GetAll();
+        var produtos = await _uof.ProdutoRepository.GetAllAsync();
 
         if (produtos is null)
         {
@@ -48,9 +48,9 @@ public class ProdutosController : ControllerBase
     // "/primeiro" em vez de "primeiro" ignora o Route
     [HttpGet("primeiro")]
     [HttpGet("/primeiro")]
-    public ActionResult<ProdutoDTO> GetPrimeiro()
+    public async Task<ActionResult<ProdutoDTO>> GetPrimeiroAsync()
     {
-        var primeiroProduto = _uof.ProdutoRepository.GetPrimeiro();
+        var primeiroProduto = await _uof.ProdutoRepository.GetPrimeiroAsync();
 
         if (primeiroProduto is null)
         {
@@ -65,10 +65,10 @@ public class ProdutosController : ControllerBase
 
     // [FromRoute] é um Atributo de Model Binding
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public ActionResult<ProdutoDTO> Get([FromRoute] int id) // [FromRoute] desnecessário
+    public async Task<ActionResult<ProdutoDTO>> GetAsync([FromRoute] int id) // [FromRoute] desnecessário
     {
 
-        var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
+        var produto = await _uof.ProdutoRepository.GetAsync(p => p.ProdutoId == id);
 
         if (produto is null)
         {
@@ -82,9 +82,9 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("porcategoria/{id:int}")]
-    public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosPorCategoriaEspecifica(int id)
+    public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPorCategoriaEspecificaAsync(int id)
     {
-        var produtos = _uof.ProdutoRepository.GetProdutosPorCategoriaEspecifica(id);
+        var produtos = await _uof.ProdutoRepository.GetProdutosPorCategoriaEspecificaAsync(id);
 
         if (produtos is null)
         {
@@ -97,7 +97,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<ProdutoDTO> Post(ProdutoDTO produtoDTO)
+    public async Task<ActionResult<ProdutoDTO>> PostAsync(ProdutoDTO produtoDTO)
     {
 
         if (produtoDTO is null)
@@ -106,7 +106,7 @@ public class ProdutosController : ControllerBase
         var produto = _mapper.Map<Produto>(produtoDTO);
 
         var produtoNovo = _uof.ProdutoRepository.Create(produto);
-        _uof.Commit();
+        await _uof.CommitAsync();
 
         var produtoNovoDTO = _mapper.Map<ProdutoDTO>(produtoNovo);
 
@@ -115,14 +115,14 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpPatch("{id:int}/UpdatePartial")]
-    public ActionResult<ProdutoDTOUpdateResponse> Patch(int id, JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
+    public async Task<ActionResult<ProdutoDTOUpdateResponse>> PatchAsync(int id, JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
     {
         if (patchProdutoDTO is null || id <= 0)
         {
             return BadRequest("Dados inválidos");
         }
 
-        var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
+        var produto = await _uof.ProdutoRepository.GetAsync(p => p.ProdutoId == id);
 
         if (produto is null)
         {
@@ -151,13 +151,14 @@ public class ProdutosController : ControllerBase
         _mapper.Map(produtoUpdateRequest, produto);
 
         _uof.ProdutoRepository.Update(produto);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         return Ok(_mapper.Map<ProdutoDTOUpdateResponse>(produto));
     }
 
     [HttpPut("{id:int}")]
-    public ActionResult<ProdutoDTO> Put(int id, ProdutoDTO produtoDTO)
+    public async Task<ActionResult<ProdutoDTO>> PutAsync(int id, ProdutoDTO produtoDTO)
     {
 
         if (id != produtoDTO.ProdutoId)
@@ -168,7 +169,8 @@ public class ProdutosController : ControllerBase
         var produto = _mapper.Map<Produto>(produtoDTO);
 
         var produtoAtualizado = _uof.ProdutoRepository.Update(produto);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         var produtoAtualizadoDTO = _mapper.Map<ProdutoDTO>(produtoAtualizado);
 
@@ -176,9 +178,9 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public ActionResult<ProdutoDTO> Delete(int id)
+    public async Task<ActionResult<ProdutoDTO>> DeleteAsync(int id)
     {
-        var produto = _uof.ProdutoRepository.Get(p => p.ProdutoId == id);
+        var produto = await _uof.ProdutoRepository.GetAsync(p => p.ProdutoId == id);
 
         if (produto is null)
         {
@@ -186,7 +188,8 @@ public class ProdutosController : ControllerBase
         }
 
         var produtoDeletado = _uof.ProdutoRepository.Delete(produto);
-        _uof.Commit();
+
+        await _uof.CommitAsync();
 
         var produtoDeletadoDTO = _mapper.Map<ProdutoDTO>(produtoDeletado);
 
@@ -194,17 +197,17 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("pagination")]
-    public ActionResult<IEnumerable<ProdutoDTO>> Get([FromQuery] Parameters produtosParams)
+    public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAsync([FromQuery] Parameters produtosParams)
     {
-        var produtos = _uof.ProdutoRepository.GetProdutos(produtosParams);
+        var produtos = await _uof.ProdutoRepository.GetProdutosAsync(produtosParams);
 
         return ObterProdutosPaginados(produtos);
     }
 
     [HttpGet("filter/preco/pagination")]
-    public ActionResult<IEnumerable<ProdutoDTO>> GetProdutosFilterPreco([FromQuery] ProdutosFiltroPreco produtosFilterParams)
+    public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosFilterPrecoAsync([FromQuery] ProdutosFiltroPreco produtosFilterParams)
     {        
-        var produtos = _uof.ProdutoRepository.GetProdutosFiltroPreco(produtosFilterParams);
+        var produtos = await _uof.ProdutoRepository.GetProdutosFiltroPrecoAsync(produtosFilterParams);
 
         return ObterProdutosPaginados(produtos);
     }

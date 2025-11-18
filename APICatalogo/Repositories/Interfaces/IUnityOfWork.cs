@@ -5,5 +5,5 @@ public interface IUnityOfWork
     IProdutoRepository ProdutoRepository { get; }
     ICategoriaRepository CategoriaRepository { get; }
     IClienteRepository ClienteRepository { get; }   
-    void Commit();
+    Task CommitAsync();
 }

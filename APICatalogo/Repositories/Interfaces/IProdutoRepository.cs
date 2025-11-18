@@ -5,9 +5,9 @@ namespace APICatalogo.Repositories.Interfaces;
 
 public interface IProdutoRepository : IRepository<Produto>
 {
-    PagedList<Produto> GetProdutos(Parameters produtosParams);
-    Produto GetPrimeiro();
-    IEnumerable<Produto> GetProdutosPorCategoriaEspecifica(int id);
+    Task<PagedList<Produto>> GetProdutosAsync(Parameters produtosParams);
+    Task<Produto> GetPrimeiroAsync();
+    Task<IEnumerable<Produto>> GetProdutosPorCategoriaEspecificaAsync(int id);
 
-    PagedList<Produto> GetProdutosFiltroPreco(ProdutosFiltroPreco produtosFiltroParams);
+    Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ProdutosFiltroPreco produtosFiltroParams);
 }

@@ -58,7 +58,7 @@ public class CategoriaRepository : ICategoriaRepository
         return await _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId <= 20).Take(100).ToListAsync();
     }
 
-    public async Task<PagedList<Categoria>> GetCategorias(Parameters categoriasParams)
+    public async Task<PagedList<Categoria>> GetCategoriasAsync(Parameters categoriasParams)
     {
         var categorias = (await GetCategoriasAsync()).AsQueryable().OrderBy(c => c.CategoriaId);
         var categoriasPaginadas = PagedList<Categoria>.ToPagedList(categorias, categoriasParams.PageNumber, categoriasParams.PageSize);
@@ -66,7 +66,7 @@ public class CategoriaRepository : ICategoriaRepository
         return categoriasPaginadas;
     }
 
-    public async Task<PagedList<Categoria>> GetCategoriaFiltroNome(CategoriaFiltroNome categoriaFiltroParams)
+    public async Task<PagedList<Categoria>> GetCategoriaFiltroNomeAsync(CategoriaFiltroNome categoriaFiltroParams)
     {
         var categorias = (await GetCategoriasAsync()).AsQueryable();
 
