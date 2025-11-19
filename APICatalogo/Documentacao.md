@@ -294,6 +294,7 @@ ___
 Representa uma categoria de produtos.
 
 
+```csharp
 public class Categoria
 {
     public int CategoriaId { get; set; }
@@ -301,6 +302,7 @@ public class Categoria
     public string? ImageUrl { get; set; }        // max 300 caracteres
     public ICollection<Produto>? Produtos { get; set; }
 }
+```
 
 Relacionamentos:
 •	Um para muitos com Produto
@@ -308,6 +310,7 @@ Relacionamentos:
 2. Produto
 Representa um produto do catálogo.
 
+```csharp
 public class Produto : IValidatableObject
 {
     public int ProdutoId { get; set; }
@@ -320,6 +323,7 @@ public class Produto : IValidatableObject
     public int CategoriaId { get; set; }
     public Categoria? Categoria { get; set; }
 }
+```
 
 Validações:
 •	Nome: primeira letra maiúscula (custom attribute)
@@ -332,6 +336,7 @@ Relacionamentos:
 3. Cliente
 Representa um cliente.
 
+```csharp
 public class Cliente
 {
     public int ClienteId { get; set; }
@@ -339,6 +344,7 @@ public class Cliente
     public int Idade { get; set; }               // 0-120
     public string? Sexo { get; set; }            // "Masculino" ou "Feminino"
 }
+```
 
 Validações:
 •	Idade: 0-120
@@ -347,11 +353,13 @@ Validações:
 4. ApplicationUser
 Estende IdentityUser para incluir refresh tokens.
 
+```csharp
 public class ApplicationUser : IdentityUser
 {
     public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpirityTime { get; set; }
 }
+```
 
 Propriedades herdadas de IdentityUser:
 •	Id, UserName, Email, PasswordHash, SecurityStamp, etc.
@@ -359,12 +367,14 @@ Propriedades herdadas de IdentityUser:
 5. ErrorDetails
 Modelo para detalhes de erros.
 
+```csharp
 public class ErrorDetails
 {
     public int StatusCode { get; set; }
     public string? Message { get; set; }
     public string Trace { get; set; }
 }
+```
 
 ---
 ## 📦 DTOs (Data Transfer Objects)
@@ -372,70 +382,85 @@ DTOs de Autenticação (Identity)
 
 # LoginModel
 
+```csharp
 public class LoginModel
 {
     [Required] public string? UserName { get; set; }
     [Required] public string? Password { get; set; }
 }
+```
 
 # RegisterModel
 
+```csharp
 public class RegisterModel
 {
     [Required] public string? Username { get; set; }
     [Required, EmailAddress] public string? Email { get; set; }
     [Required] public string? Password { get; set; }
 }
+```
 
 # TokenModel
 
+```csharp
 public class TokenModel
 {
     public string? AccessToken { get; set; }
     public string? RefreshToken { get; set; }
 }
+```
 
 # Response
 
+```csharp
 public class Response
 {
     public string? Status { get; set; }
     public string? Message { get; set; }
 }
+```
 
 ---
 # DTOs de Categoria
 # CategoriaDTO
 
+```csharp
 public class CategoriaDTO
 {
     public int CategoriaId { get; set; }
     [Required, StringLength(80)] public string? Nome { get; set; }
     [Required, StringLength(300)] public string? ImageUrl { get; set; }
 }
+```
 
 # CategoriaDTOUpdateRequest
 
+```csharp
 public class CategoriaDTOUpdateRequest
 {
     public string? Nome { get; set; }
     public string? ImageUrl { get; set; }
 }
+```
 
 # CategoriaDTOUpdateResponse
 
+```csharp
 public class CategoriaDTOUpdateResponse
 {
     public int CategoriaId { get; set; }
     public string? Nome { get; set; }
     public string? ImageUrl { get; set; }
 }
+```
 
 ---
 
 # DTOs de Produto
 # ProdutoDTO
 
+```csharp
 public class ProdutoDTO
 {
     public int ProdutoId { get; set; }
@@ -452,9 +477,11 @@ public class ProdutoDTO
     [Required, StringLength(300)]
     public string? ImageUrl { get; set; }
 }
+```
 
 # ProdutoDTOUpdateRequest
 
+```csharp
 public class ProdutoDTOUpdateRequest : IValidatableObject
 {
     [Range(1, 9999)] public int Estoque { get; set; }
@@ -466,9 +493,11 @@ public class ProdutoDTOUpdateRequest : IValidatableObject
             yield return new ValidationResult("A data deve ser maior que a data atual");
     }
 }
+```
 
 # ProdutoDTOUpdateResponse
 
+```csharp
 public class ProdutoDTOUpdateResponse
 {
     public int ProdutoId { get; set; }
@@ -480,10 +509,13 @@ public class ProdutoDTOUpdateResponse
     public DateTime DataCadastro { get; set; }
     public int CategoriaId { get; set; }
 }
+```
+
 ---
 # DTOs de Cliente
 # ClienteDTO
 
+```csharp
 public class ClienteDTO
 {
     public int ClienteId { get; set; }
@@ -491,18 +523,22 @@ public class ClienteDTO
     [Required] public int Idade { get; set; }
     [Required] public string? Sexo { get; set; }
 }
+```
 
 # ClienteDTOUpdateRequest
 
+```csharp
 public class ClienteDTOUpdateRequest
 {
     public string? Nome { get; set; }
     [Range(0, 120)] public int Idade { get; set; }
     [PermissoesDeSexo] public string? Sexo { get; set; }
 }
+```
 
 # ClienteDTOUpdateResponse
 
+```csharp
 public class ClienteDTOUpdateResponse
 {
     public int ClienteId { get; set; }
@@ -510,6 +546,7 @@ public class ClienteDTOUpdateResponse
     public int Idade { get; set; }
     public string? Sexo { get; set; }
 }
+```
 ---
 # 🗄️ Repositórios
 Hierarquia de Repositórios
@@ -524,6 +561,7 @@ ___
 # IRepository<T> (Interface Genérica)
 Define operações CRUD básicas para qualquer entidade.
 
+```csharp
 public interface IRepository<T>
 {
     Task<IEnumerable<T>> GetAllAsync();
@@ -532,6 +570,7 @@ public interface IRepository<T>
     T Update(T entity);
     T Delete(T entity);
 }
+```
 
 Métodos:
 •	GetAllAsync(): Retorna todas as entidades
@@ -543,12 +582,14 @@ Métodos:
 # Repository<T> (Implementação Base)
 Implementa a interface genérica usando Entity Framework Core.
 
+```csharp
 public class Repository<T> : IRepository<T> where T : class
 {
     protected readonly AppDbContext _context;
     
     // Implementações usando _context.Set<T>()
 }
+```
 
 Características:
 •	Usa AsNoTracking() para melhor performance em leituras
@@ -557,6 +598,7 @@ Características:
 # IProdutoRepository
 Interface específica para produtos com métodos adicionais.
 
+```csharp
 public interface IProdutoRepository : IRepository<Produto>
 {
     Task<PagedList<Produto>> GetProdutosAsync(Parameters produtosParams);
@@ -564,6 +606,7 @@ public interface IProdutoRepository : IRepository<Produto>
     Task<IEnumerable<Produto>> GetProdutosPorCategoriaEspecificaAsync(int id);
     Task<PagedList<Produto>> GetProdutosFiltroPrecoAsync(ProdutosFiltroPreco produtosFiltroParams);
 }
+```
 
 Métodos Específicos:
 1.	GetProdutosAsync: Paginação de produtos
@@ -574,6 +617,7 @@ Métodos Específicos:
 # ICategoriaRepository
 Interface específica para categorias.
 
+```csharp
 public interface ICategoriaRepository
 {
     Task<PagedList<Categoria>> GetCategoriasAsync(Parameters categoriasParams);
@@ -585,6 +629,7 @@ public interface ICategoriaRepository
     Task<Categoria> DeleteCategoriaAsync(int id);
     Task<IEnumerable<Categoria>> GetCategoriasEProdutosAsync();
 }
+```
 
 Métodos Específicos:
 1.	GetCategoriasEProdutosAsync: Retorna categorias com produtos (Include)
@@ -593,6 +638,7 @@ Métodos Específicos:
 # IClienteRepository
 Interface específica para clientes.
 
+```csharp
 public interface IClienteRepository : IRepository<Cliente>
 {
     Task<PagedList<Cliente>> GetClientesAsync(Parameters clientesParams);
@@ -601,6 +647,7 @@ ___
 # IUnityOfWork (Unit of Work)
 Gerencia os repositórios e transações.
 
+```csharp
 public interface IUnityOfWork
 {
     IProdutoRepository ProdutoRepository { get; }
@@ -608,8 +655,10 @@ public interface IUnityOfWork
     IClienteRepository ClienteRepository { get; }
     Task CommitAsync();
 }
+```
 
 Implementação (UnityOfWork):
+```csharp
 public class UnityOfWork : IUnityOfWork
 {
     private IProdutoRepository? _produtoRepo;
@@ -626,6 +675,7 @@ public class UnityOfWork : IUnityOfWork
     public async Task CommitAsync() => 
         await _context.SaveChangesAsync();
 }
+```
 
 Características:
 •	Lazy Loading: Repositórios são criados apenas quando acessados
@@ -640,8 +690,10 @@ Rota Base: /api/auth
 # Métodos:
 # 1. Login
 
+```csharp
 [HttpPost("login")]
 public async Task<IActionResult> Login([FromBody] LoginModel model)
+```
 
 Funcionalidade:
 •	Valida credenciais do usuário
@@ -654,18 +706,22 @@ Funcionalidade:
 
 Resposta de Sucesso (200):
 
+```json
 {
   "token": "eyJhbGc...",
   "refreshToken": "base64string...",
   "expiration": "2025-11-19T12:00:00Z"
 }
+```
 
 Resposta de Erro (401): Unauthorized
 ---
 # 2. Register
 
+```csharp
 [HttpPost("register")]
 public async Task<IActionResult> Register([FromBody] RegisterModel model)
+```
 
 Funcionalidade:
 •	Verifica se usuário já existe
@@ -675,22 +731,28 @@ Funcionalidade:
 •	Retorna status de sucesso/erro
 Resposta de Sucesso (200):
 
+```json
 {
   "status": "Success",
   "message": "User created successfully!"
 }
+```
 
 Resposta de Erro (400): 
 
+```json
 {
   "status": "Error",
   "message": "User already exists!"
 }
+```
 ---
 # 3. Refresh Token
 
+```csharp
 [HttpPost("refresh-token")]
 public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
+```
 
 Funcionalidade:
 •	Valida access token expirado
@@ -707,16 +769,20 @@ Fluxo:
 5.	Retorna novos tokens
 Resposta de Sucesso (200):
 
+```json
 {
   "token": "newAccessToken...",
   "refreshToken": "newRefreshToken..."
 }
+```
 ___
 # 4. Revoke
 
+```csharp
 [Authorize]
 [HttpPost("revoke/{username}")]
 public async Task<IActionResult> Revoke(string username)
+```
 
 Funcionalidade:
 •	Requer autenticação
@@ -736,9 +802,11 @@ Dependências:
 Métodos:
 # 1. GetAllAsync
 
+```csharp
 [HttpGet]
 [Authorize]
 public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAllAsync()
+```
 
 Funcionalidade:
 •	Requer autenticação
@@ -749,9 +817,11 @@ Resposta (200): Lista de ProdutoDTO
 ---
 # 2. GetPrimeiroAsync
 
+```csharp
 [HttpGet("primeiro")]
 [HttpGet("/primeiro")]
 public async Task<ActionResult<ProdutoDTO>> GetPrimeiroAsync()
+```
 
 Funcionalidade:
 •	Retorna o primeiro produto do catálogo
@@ -762,8 +832,10 @@ Endpoints:
 ---
 # 3. GetAsync
 
+```csharp
 [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
 public async Task<ActionResult<ProdutoDTO>> GetAsync(int id)
+```
 
 Funcionalidade:
 •	Busca produto por ID
@@ -773,8 +845,10 @@ Resposta (404): Se não encontrado
 ---
 # 4. GetProdutosPorCategoriaEspecificaAsync
 
+```csharp
 [HttpGet("porcategoria/{id:int}")]
 public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosPorCategoriaEspecificaAsync(int id)
+```
 
 Funcionalidade:
 •	Filtra produtos por categoria
@@ -783,8 +857,10 @@ Endpoint: GET /api/produtos/porcategoria/2
 ---
 # 5. PostAsync
 
+```csharp
 [HttpPost]
 public async Task<ActionResult<ProdutoDTO>> PostAsync(ProdutoDTO produtoDTO)
+```
 
 Funcionalidade:
 •	Cria novo produto
@@ -795,10 +871,12 @@ Resposta (201): Created com location header
 ---
 # 6. PatchAsync (Atualização Parcial)
 
+```csharp
 [HttpPatch("{id:int}/UpdatePartial")]
 public async Task<ActionResult<ProdutoDTOUpdateResponse>> PatchAsync(
     int id, 
     JsonPatchDocument<ProdutoDTOUpdateRequest> patchProdutoDTO)
+```
 
 Funcionalidade:
 •	Atualização parcial usando JSON Patch
@@ -809,9 +887,11 @@ Endpoint: PATCH /api/produtos/5/UpdatePartial
 
 Exemplo de Request Body:
 
+```json
 [
   { "op": "replace", "path": "/Estoque", "value": 100 }
 ]
+```
 
 Operações suportadas:
 •	add: Adicionar valor
@@ -823,8 +903,10 @@ Operações suportadas:
 ---
 # 7. PutAsync
 
+```csharp
 [HttpPut("{id:int}")]
 public async Task<ActionResult<ProdutoDTO>> PutAsync(int id, ProdutoDTO produtoDTO)
+```
 
 Funcionalidade:
 •	Atualização completa do produto
@@ -834,8 +916,10 @@ Endpoint: PUT /api/produtos/5
 ---
 # 8. DeleteAsync
 
+```csharp
 [HttpDelete("{id:int}")]
 public async Task<ActionResult<ProdutoDTO>> DeleteAsync(int id)
+```
 
 Funcionalidade:
 •	Deleta produto por ID
@@ -844,8 +928,10 @@ Endpoint: DELETE /api/produtos/5
 ---
 # 9. GetAsync (Paginação)
 
+```csharp
 [HttpGet("pagination")]
 public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAsync([FromQuery] Parameters produtosParams)
+```
 
 Funcionalidade:
 •	Retorna produtos paginados
@@ -855,6 +941,7 @@ Endpoint: GET /api/produtos/pagination?pageNumber=1&pageSize=10
 
 Header de Resposta:
 
+```
 X-Pagination: {
   "totalCount": 100,
   "pageSize": 10,
@@ -863,12 +950,15 @@ X-Pagination: {
   "hasNext": true,
   "hasPrevious": false
 }
+```
 ---
 # 10. GetProdutosFiltroPrecoAsync
 
+```csharp
 [HttpGet("filter/preco/pagination")]
 public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetProdutosFilterPrecoAsync(
     [FromQuery] ProdutosFiltroPreco produtosFilterParams)
+```
 
 Funcionalidade:
 •	Filtra produtos por preço com critério
@@ -886,9 +976,11 @@ Dependências:
 # Métodos:
 # 1. GetAllAsync
 
+```csharp
 [HttpGet]
 [ServiceFilter(typeof(ApiLoggingFilter))]
 public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetAllAsync()
+```
 
 Funcionalidade:
 •	Retorna todas as categorias
@@ -898,8 +990,10 @@ Endpoint: GET /api/categorias
 ---
 # 2. GetAsync
 
+```csharp
 [HttpGet("categorias_produtos")]
 public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasEProdutosAsync()
+```
 
 Funcionalidade:
 •	Retorna categorias com produtos relacionados
@@ -909,8 +1003,10 @@ Endpoint: GET /api/categorias/categorias_produtos
 ---
 # 4. PostAsync
 
+```csharp
 [HttpPost]
 public async Task<ActionResult<CategoriaDTO>> PostAsync(CategoriaDTO categoriaDTO)
+```
 
 Funcionalidade:
 •	Cria nova categoria
@@ -919,10 +1015,12 @@ Endpoint: POST /api/categorias
 ---
 # 5. Patch (Atualização Parcial)
 
+```csharp
 [HttpPatch("{id:int}/UpdatePartial")]
 public async Task<ActionResult<CategoriaDTOUpdateResponse>> Patch(
     int id, 
     JsonPatchDocument<CategoriaDTOUpdateRequest> patchCategoriaDTO)
+```
 
 Funcionalidade:
 •	Atualização parcial usando JSON Patch
@@ -931,8 +1029,10 @@ Endpoint: PATCH /api/categorias/3/UpdatePartial
 ---
 # 6. PutAsync
 
+```csharp
 [HttpPut("{id:int}")]
 public async Task<ActionResult<CategoriaDTO>> PutAsync(int id, CategoriaDTO categoriaDTO)
+```
 
 Funcionalidade:
 •	Atualização completa da categoria
@@ -940,8 +1040,10 @@ Endpoint: PUT /api/categorias/3
 ---
 # 7. DeleteAsync
 
+```csharp
 [HttpDelete("{id:int}")]
 public async Task<ActionResult<CategoriaDTO>> DeleteAsync(int id)
+```
 
 Funcionalidade:
 •	Deleta categoria por ID
@@ -949,8 +1051,10 @@ Endpoint: DELETE /api/categorias/3
 ---
 # 8. Get (Paginação)
 
+```csharp
 [HttpGet("pagination")]
 public async Task<ActionResult<IEnumerable<CategoriaDTO>>> Get([FromQuery] Parameters categoriasParams)
+```
 
 Funcionalidade:
 •	Paginação de categorias
@@ -958,9 +1062,11 @@ Endpoint: GET /api/categorias/pagination?pageNumber=1&pageSize=10
 ---
 # 9. GetCategoriaFilterNome
 
+```csharp
 [HttpGet("filter/nome/pagination")]
 public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriaFilterNome(
     [FromQuery] CategoriaFiltroNome categoriaFiltroParams)
+```
 
 Funcionalidade:
 •	Filtra categorias por nome (case-insensitive)
@@ -969,9 +1075,11 @@ Endpoint: GET /api/categorias/filter/nome/pagination?nome=Eletrônicos&pageNumbe
 ---
 # 10. GetSaudacaoFromServices (Exemplo)
 
+```csharp
 [HttpGet("filter/nome/pagination")]
 public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriaFilterNome(
     [FromQuery] CategoriaFiltroNome categoriaFiltroParams)
+```
 
 Funcionalidade:
 •	Exemplo de injeção de dependência via [FromServices]
@@ -998,6 +1106,7 @@ O projeto usa autenticação baseada em JWT com suporte a Refresh Tokens.
 
 # Configurações (appsettings.json):
 
+```json
 "JWT": {
   "ValidAudience": "http://localhost:5179,https://localhost:7052",
   "ValidIssuer": "http://localhost:5179,https://localhost:7052",
@@ -1005,6 +1114,7 @@ O projeto usa autenticação baseada em JWT com suporte a Refresh Tokens.
   "TokenValidityInMinutes": 1,
   "RefreshTokenValidityInDays": 7
 }
+```
 ---
 # TokenService (ITokenService)
 Serviço responsável pela geração e validação de tokens.
@@ -1012,7 +1122,9 @@ Serviço responsável pela geração e validação de tokens.
 # Métodos:
 # 1. GenerateAccessToken
 
+```csharp
 public JwtSecurityToken GenerateAccessToken(IEnumerable<Claim> claims, IConfiguration _config)
+```
 
 Funcionalidade:
 •	Gera JWT access token
@@ -1022,6 +1134,7 @@ Funcionalidade:
 
 Estrutura do Token:
 
+```json
 {
   "header": {
     "alg": "HS256",
@@ -1038,12 +1151,15 @@ Estrutura do Token:
   },
   "signature": "..."
 }
+```
 
 ---
 # 2. GenerateRefreshToken
 
 
+```csharp
 public ClaimsPrincipal GetPrincipalFromExpiredToken(string token, IConfiguration _config)
+```
 
 Funcionalidade:
 •	Extrai claims de um token expirado
@@ -1054,6 +1170,7 @@ Uso: Necessário para refresh token flow
 ---
 # Fluxo de Autenticação
 
+```mermaid
 sequenceDiagram
     participant Cliente
     participant API
@@ -1085,7 +1202,9 @@ sequenceDiagram
     TokenService-->>API: Novo Refresh Token
     API->>Database: Atualiza refresh token
     API-->>Cliente: Novos tokens
-___
+```
+
+---
 # Configuração no Program.cs
 
 // Autenticação JWT
@@ -1120,9 +1239,11 @@ Gerencia usuários, senhas, roles e claims.
 
 Configuração:
 
+```csharp
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+```
 
 Tabelas Criadas (Migrations):
 •	AspNetUsers: Usuários
@@ -1137,6 +1258,7 @@ Tabelas Criadas (Migrations):
 # ApiExceptionFilter
 Filtro global para tratamento de exceções não tratadas.
 
+```csharp
 public class ApiExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
@@ -1149,6 +1271,7 @@ public class ApiExceptionFilter : IExceptionFilter
         };
     }
 }
+```
 
 Funcionalidade:
 •	Intercepta todas as exceções não tratadas
@@ -1157,15 +1280,18 @@ Funcionalidade:
 
 Registro:
 
+```csharp
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ApiExceptionFilter));
 });
+```
 
 --
 # ApiLoggingFilter
 Filtro de ação para logging de requisições.
 
+```csharp
 public class ApiLoggingFilter : IActionFilter
 {
     public void OnActionExecuting(ActionExecutingContext context)
@@ -1184,6 +1310,7 @@ public class ApiLoggingFilter : IActionFilter
         _logger.LogInformation($"Status Code: {context.HttpContext.Response.StatusCode}");
     }
 }
+```
 
 Funcionalidade:
 •	Loga antes e depois da execução de uma action
@@ -1191,17 +1318,20 @@ Funcionalidade:
 
 Uso:
 
+```csharp
 // Registro global
 builder.Services.AddScoped<ApiLoggingFilter>();
 
 // Uso em controller
 [ServiceFilter(typeof(ApiLoggingFilter))]
 public async Task<IActionResult> GetAllAsync()
+```
 
 ## 📄 Paginação
 # PagedList<T>
 Classe genérica para resultados paginados.
 
+```csharp
 public class PagedList<T> : List<T> where T : class
 {
     public int CurrentPage { get; set; }
@@ -1220,6 +1350,7 @@ public class PagedList<T> : List<T> where T : class
         return new PagedList<T>(items, count, pageNumber, pageSize);
     }
 }
+```
 
 Propriedades:
 •	CurrentPage: Página atual
@@ -1232,6 +1363,7 @@ Propriedades:
 # Parameters
 Classe base para parâmetros de paginação.
 
+```csharp
 public class Parameters
 {
     const int maxPageSize = 1000;
@@ -1245,6 +1377,7 @@ public class Parameters
         set { _pageSize = (value > maxPageSize || value == 0) ? maxPageSize : value; }
     }
 }
+```
 
 Características:
 •	Página padrão: 1
@@ -1254,26 +1387,31 @@ Características:
 # CategoriaFiltroNome
 Parâmetros de filtro por nome para categorias.
 
+```csharp
 public class CategoriaFiltroNome : Parameters
 {
     public string? Nome { get; set; }
 }
+```
 
 Uso: GET /api/categorias/filter/nome/pagination?nome=Eletrônicos&pageNumber=1&pageSize=10
 ---
 # ProdutosFiltroPreco
 Parâmetros de filtro por preço para produtos.
 
+```csharp
 public class ProdutosFiltroPreco : Parameters
 {
     public decimal? Preco { get; set; }
     public string? PrecoCriterio { get; set; } // "maior", "menor" ou "igual"
 }
+```
 
 Uso: GET /api/produtos/filter/preco/pagination?preco=50&precoCriterio=maior&pageNumber=1&pageSize=10
 ---
 Exemplo de Uso:
 
+```csharp
 // No repositório
 public async Task<PagedList<Produto>> GetProdutosAsync(Parameters produtosParams)
 {
@@ -1301,6 +1439,7 @@ var metadata = new
 };
 
 Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+```
 
 ---
 ## ✅ Validações
@@ -1309,6 +1448,7 @@ Validações Customizadas (Data Annotations)
 # PrimeiraLetraMaiusculaAttribute
 Valida se a primeira letra de uma string é maiúscula.
 
+```csharp
 public class PrimeiraLetraMaiusculaAttribute : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -1324,16 +1464,20 @@ public class PrimeiraLetraMaiusculaAttribute : ValidationAttribute
         return ValidationResult.Success;
     }
 }
+```
 
 Uso:
 
+```csharp
 [PrimeiraLetraMaiuscula]
 public string? Nome { get; set; }
+```
 
 ---
 # PermissoesDeSexoAttribute
 Valida se o sexo é "Masculino" ou "Feminino" (case-insensitive).
 
+```csharp
 public class PermissoesDeSexoAttribute : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -1349,11 +1493,14 @@ public class PermissoesDeSexoAttribute : ValidationAttribute
         return new ValidationResult("O campo sexo deve ser 'Masculino' ou 'Feminino'");
     }
 }
+```
 
 Uso:
 
+```csharp
 [PermissoesDeSexo]
 public string? Sexo { get; set; }
+```
 
 ---
 # Validação com IValidatableObject
@@ -1361,6 +1508,7 @@ Permite validações complexas que envolvem múltiplas propriedades.
 
 Exemplo no Modelo Produto:
 
+```csharp
 public class Produto : IValidatableObject
 {
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -1388,10 +1536,12 @@ public class Produto : IValidatableObject
         }
     }
 }
+```
 ---
 
 Exemplo no DTO ProdutoDTOUpdateRequest:
 
+```csharp
 public class ProdutoDTOUpdateRequest : IValidatableObject
 {
     [Range(1, 9999)]
@@ -1410,6 +1560,7 @@ public class ProdutoDTOUpdateRequest : IValidatableObject
         }
     }
 }
+```
 
 ---
 Validações Padrão do ASP.NET Core
@@ -1431,6 +1582,7 @@ O projeto implementa um sistema de logging que grava logs em arquivo.
 # CustomLogger
 Logger que escreve em arquivo de texto.
 
+```csharp
 public class CustomLogger : ILogger
 {
     readonly string loggerName;
@@ -1449,10 +1601,12 @@ public class CustomLogger : ILogger
         // Escreve no arquivo
     }
 }
+```
 ---
 # CustomLoggerProvider
 Provider que gerencia instâncias de CustomLogger.
 
+```csharp
 public class CustomLoggerProvider : ILoggerProvider
 {
     readonly CustomLoggerProviderConfiguration loggerConfig;
@@ -1464,6 +1618,7 @@ public class CustomLoggerProvider : ILoggerProvider
         return loggers.GetOrAdd(categoryName, name => new CustomLogger(name, loggerConfig));
     }
 }
+```
 
 Características:
 •	Usa ConcurrentDictionary para thread-safety
@@ -1472,33 +1627,40 @@ Características:
 # CustomLoggerProviderConfiguration
 Configuração do logger.
 
+```csharp
 public class CustomLoggerProviderConfiguration
 {
     public LogLevel LogLevel { get; set; } = LogLevel.Information;
     public int EventId { get; set; } = 0;
 }
+```
 ---
 Configuração no Program.cs:
 
+```csharp
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
     LogLevel = LogLevel.Information
 }));
+```
 
 ---
 Exemplo de Log Gerado:
 
+```
 Information: 14 - Now listening on: https://localhost:7052
 Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 20101 - Executed DbCommand (41ms) [Parameters=[], ...]
 Warning: 0 - You do not have a valid license key for AutoMapper...
+```
 
 ---
 ## 🔧 Middlewares
 # ApiExceptionMiddlewareExtensions
 Extension method para configurar middleware global de exceções.
 
+```csharp
 public static class ApiExceptionMiddlewareExtensions
 {
     public static void ConfigureExceptionHandler(this IApplicationBuilder app)
@@ -1525,6 +1687,7 @@ public static class ApiExceptionMiddlewareExtensions
         });
     }
 }
+```
 
 Funcionalidade:
 •	Captura exceções não tratadas
@@ -1532,10 +1695,12 @@ Funcionalidade:
 •	Inclui stack trace (útil em desenvolvimento)
 Uso:
 
+```csharp
 if (app.Environment.IsDevelopment())
 {
     app.ConfigureExceptionHandler();
 }
+```
 
 ---
 # Pipeline de Middlewares (Program.cs):
@@ -1561,6 +1726,7 @@ Ordem de Execução:
 ## ⚙️ Configurações
 # appsettings.json
 
+```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=CatalogoDB;Uid=root;Pwd=root"
@@ -1580,11 +1746,13 @@ Ordem de Execução:
   },
   "AllowedHosts": "*"
 }
+```
 
 ---
 # Program.cs - Configuração Completa
 # 1. Controllers e JSON
 
+```csharp
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ApiExceptionFilter));  // Filtro global
@@ -1594,26 +1762,32 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 })
 .AddNewtonsoftJson();  // Suporte ao JSON Patch
+```
 
 ---
 # 2. Repositórios
 
+```csharp
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));  // Genérico
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+```
 
 ---
 # 3. Serviços
 
+```csharp
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddTransient<IMeuServico, MeuServico>();
 builder.Services.AddScoped<ApiLoggingFilter>();
+```
 
 ---
 # 4. Swagger
 
+```csharp
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
@@ -1644,25 +1818,31 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+```
 
 ---
 # 5. Banco de Dados
 
+```csharp
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+```
 
 ---
 # 6. Identity
 
+```csharp
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+```
 
 ---
 # 7. Autenticação JWT
 
+```csharp
 var secretkey = builder.Configuration["JWT:SecretKey"] ?? 
     throw new ArgumentException("invalid secret key");
 
@@ -1688,22 +1868,27 @@ builder.Services.AddAuthentication(options =>
             System.Text.Encoding.UTF8.GetBytes(secretkey))
     };
 });
+```
 
 ---
 # 8. AutoMapper
 
+```csharp
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<AutoMapperDTOMappingProfile>();
 });
+```
 
 ---
 # 9. Logging Customizado
 
+```csharp
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
     LogLevel = LogLevel.Information
 }));
+```
 
 ---
 ## 🌐 Endpoints da API
