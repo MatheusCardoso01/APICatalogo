@@ -39,7 +39,8 @@ builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUnityOfWork, UnityOfWork>(); // padrão Unit of Work
+builder.Services.AddScoped<IUnityOfWork, UnityOfWork>(); // Unit of Work(.NET only)
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Add Services personalizados
 
