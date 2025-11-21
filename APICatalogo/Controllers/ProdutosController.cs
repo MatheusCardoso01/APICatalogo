@@ -32,7 +32,7 @@ public class ProdutosController : ControllerBase
     // endpoints
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Policy = "UserOnly")]
     public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAllAsync()
     {
         var produtos = await _uof.ProdutoRepository.GetAllAsync();
