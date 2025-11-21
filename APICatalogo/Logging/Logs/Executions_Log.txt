@@ -275,3 +275,854 @@ SET AUTOCOMMIT = 1;
 UPDATE `AspNetUsers` SET `AccessFailedCount` = @p0, `ConcurrencyStamp` = @p1, `Email` = @p2, `EmailConfirmed` = @p3, `LockoutEnabled` = @p4, `LockoutEnd` = @p5, `NormalizedEmail` = @p6, `NormalizedUserName` = @p7, `PasswordHash` = @p8, `PhoneNumber` = @p9, `PhoneNumberConfirmed` = @p10, `RefreshToken` = @p11, `RefreshTokenExpirityTime` = @p12, `SecurityStamp` = @p13, `TwoFactorEnabled` = @p14, `UserName` = @p15
 WHERE `Id` = @p16 AND `ConcurrencyStamp` = @p17;
 SELECT ROW_COUNT();
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:20:07
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (55ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:20:09
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:20:18
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:20:18
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:22:25
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:22:26
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:22:53
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:22:53
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:41:50
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:41:52
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:42:13
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:42:13
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:42:15
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:42:15
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:00
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:03
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:27
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:27
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:29
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:43:29
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:44:57
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:44:57
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:47:14
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (44ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:47:16
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:47:27
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:47:27
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:51:38
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (57ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:51:40
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:51:47
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:51:48
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:53:01
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:53:03
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:53:13
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:53:13
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:58:06
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:58:08
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:58:52
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:58:53
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:59:23
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 11:59:24
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:19
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:21
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:30
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:30
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:36
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:28:36
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:30:09
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:30:11
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:30:22
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 13:30:22
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:17:22
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (53ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:17:25
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:39:57
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (46ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:39:59
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (63ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:43:25
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (40ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:43:27
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (75ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:34
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 14:45:34
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:41
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (37ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:44
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:47
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:47
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:52
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:23:52
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:05
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:05
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:09
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:09
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:12
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:12
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:17
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:17
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (50ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 0 - Não Encontrado
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 0 - Não Encontrado
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:39
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:39
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:44
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:44
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:49
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:24:49
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:26
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:28
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:32
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:32
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:34
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:35
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:41
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:41
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:43
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:43
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:50
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:50
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:51
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:46:51
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:47:00
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:47:00
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:47:00
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:47:00
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (47ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (8ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (13ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+WHERE `c`.`CategoriaId` = @__id_0
+LIMIT 1
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 16:23:44
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 16:23:45
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################

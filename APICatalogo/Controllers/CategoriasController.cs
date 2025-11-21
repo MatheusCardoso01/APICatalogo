@@ -7,15 +7,19 @@ using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace APICatalogo.Controllers;
 
 [Route("api/[controller]")]
+[EnableCors("OrigensComAcessoPermitido")]
+// [EnableRateLimiting("fixedwindow")] usa a Global se não tiver essa anotação
 [ApiController]
 public class CategoriasController : ControllerBase
 {
@@ -53,12 +57,13 @@ public class CategoriasController : ControllerBase
         return Ok(categoriasDTO);
     }
 
+    [DisableCors]
+    [DisableRateLimiting] // esse e o de cima só para exemplificar
     [HttpGet("{id:int}", Name = "ObterCategoria")]
     public async Task<ActionResult<CategoriaDTO>> GetAsync(int id)
     {
 
         var categoria = await _repository.GetCategoriaAsync(id);
-
 
         if (categoria is null)
         {

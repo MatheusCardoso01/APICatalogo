@@ -4,16 +4,19 @@ using APICatalogo.Extensions;
 using APICatalogo.Filters;
 using APICatalogo.Logging;
 using APICatalogo.Models;
+using APICatalogo.RateLimit;
 using APICatalogo.Repositories;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,18 @@ builder.Services.AddControllers(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 }).AddNewtonsoftJson();
+
+// Add CORS (Cross-Origin Resource Sharing)
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("OrigensComAcessoPermitido", policy =>
+    {
+        policy.WithOrigins("https://localhost:7169") // sem a barra '/' no fim, se nao falha
+            .WithMethods("GET", "POST")
+            .AllowAnyHeader();
+    });
+});
 
 // Add global filter de logging
 
@@ -49,7 +64,7 @@ builder.Services.AddTransient<IMeuServico, MeuServico>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer(); // obrigatório para usar swaggergen
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -67,7 +82,7 @@ builder.Services.AddSwaggerGen(c =>
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { 
+        {
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference
@@ -129,7 +144,7 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
 
-    options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context => 
+    options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context =>
                         context.User.HasClaim(claim => claim.Type == "id" && claim.Value == "matheus") || context.User.IsInRole("SuperAdmin")));
 });
 
@@ -137,6 +152,39 @@ builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderCon
 {
     LogLevel = LogLevel.Information
 }));
+
+// Add Rate Limiting
+
+var myOptions = new MyRateLimitOptions();
+
+builder.Configuration.GetSection(MyRateLimitOptions.MyRateLimit).Bind(myOptions);
+
+builder.Services.AddRateLimiter(options => // Exemplo de Rate Limiter por política
+{
+    options.AddFixedWindowLimiter(policyName: "fixedwindow", fixedWindowOptions =>
+    {
+        fixedWindowOptions.PermitLimit = myOptions.PermitLimit;
+        fixedWindowOptions.Window = TimeSpan.FromSeconds(myOptions.Window);
+        fixedWindowOptions.QueueLimit = myOptions.QueueLimit;
+        fixedWindowOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+builder.Services.AddRateLimiter(options => // Exemplo de Rate Limiter Global
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpcontext =>
+        RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpcontext.User.Identity?.Name ?? httpcontext.Request.Headers.Host.ToString(),
+        factory: partition => new FixedWindowRateLimiterOptions
+        {
+            AutoReplenishment = true,
+            PermitLimit = 2,
+            QueueLimit = 0,
+            Window = TimeSpan.FromSeconds(10)
+        }));
+});
 
 // Add AutoMapper para mapeamento de DTOs
 
@@ -159,6 +207,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseRateLimiter(); // sempre depois do routing
+
+app.UseCors("OrigensComAcessoPermitido");
 
 app.UseAuthorization();
 
