@@ -8,6 +8,7 @@ using APICatalogo.RateLimit;
 using APICatalogo.Repositories;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
@@ -184,6 +185,20 @@ builder.Services.AddRateLimiter(options => // Exemplo de Rate Limiter Global
             QueueLimit = 0,
             Window = TimeSpan.FromSeconds(10)
         }));
+});
+
+// Add API Versioning
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
+}).AddApiExplorer(options =>
+{ 
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
 });
 
 // Add AutoMapper para mapeamento de DTOs
