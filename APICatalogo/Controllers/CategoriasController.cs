@@ -17,9 +17,10 @@ using Newtonsoft.Json;
 
 namespace APICatalogo.Controllers;
 
+// [EnableRateLimiting("fixedwindow")] usa a Global se não tiver essa anotação
 [Route("api/[controller]")]
 [EnableCors("OrigensComAcessoPermitido")]
-// [EnableRateLimiting("fixedwindow")] usa a Global se não tiver essa anotação
+[ApiConventionType(typeof(DefaultApiConventions))]
 [ApiController]
 public class CategoriasController : ControllerBase
 {
@@ -59,6 +60,8 @@ public class CategoriasController : ControllerBase
 
     [DisableCors]
     [DisableRateLimiting] // esse e o de cima só para exemplificar
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)] // exibe na documentação do Swagger
     [HttpGet("{id:int}", Name = "ObterCategoria")]
     public async Task<ActionResult<CategoriaDTO>> GetAsync(int id)
     {

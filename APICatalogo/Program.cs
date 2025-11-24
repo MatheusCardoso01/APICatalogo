@@ -16,61 +16,177 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 
+
+// 0. Configuração do Builder
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// Add Controllers
-
+// 1. Controllers e Filtros Globais
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add(typeof(ApiExceptionFilter));
-})
+    options.Filters.Add(typeof(ApiExceptionFilter)); // Filtro global de exceções
+})          
 .AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-}).AddNewtonsoftJson();
+})
+.AddNewtonsoftJson();
 
-// Add CORS (Cross-Origin Resource Sharing)
+// 2. Banco de Dados
+string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("OrigensComAcessoPermitido", policy =>
-    {
-        policy.WithOrigins("https://localhost:7169") // sem a barra '/' no fim, se nao falha
-            .WithMethods("GET", "POST")
-            .AllowAnyHeader();
-    });
-});
-
-// Add global filter de logging
-
-builder.Services.AddScoped<ApiLoggingFilter>();
-
-// Add Repositories personalizados
-
+// 3. Repositórios e Unit of Work
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUnityOfWork, UnityOfWork>(); // Unit of Work(.NET only)
+builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-// Add Services personalizados
-
+// 4. Serviços Personalizados
 builder.Services.AddTransient<IMeuServico, MeuServico>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// 5. AutoMapper
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<AutoMapperDTOMappingProfile>();
+});
 
-builder.Services.AddEndpointsApiExplorer(); // obrigatório para usar swaggergen
+// 6. Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
+// 7. JWT (Autenticação e Autorização via JWT)
+var secretkey = builder.Configuration["JWT:SecretKey"] ?? throw new ArgumentException("Chave secreta inválida");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretkey))
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("SuperAdminOnly", policy => policy.RequireRole("Admin").RequireClaim("id", "matheus"));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
+    options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context =>
+        context.User.HasClaim(claim => claim.Type == "id" && claim.Value == "matheus") || context.User.IsInRole("SuperAdmin")));
+});
+
+// 8. CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("OrigensComAcessoPermitido", policy =>
+    {
+        policy.WithOrigins("https://localhost:7169")
+              .WithMethods("GET", "POST")
+              .AllowAnyHeader();
+    });
+});
+
+// 9. Rate Limiting
+var myOptions = new MyRateLimitOptions();
+builder.Configuration.GetSection(MyRateLimitOptions.MyRateLimit).Bind(myOptions);
+
+// Limitação por política
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter(policyName: "fixedwindow", fixedWindowOptions =>
+    {
+        fixedWindowOptions.PermitLimit = myOptions.PermitLimit;
+        fixedWindowOptions.Window = TimeSpan.FromSeconds(myOptions.Window);
+        fixedWindowOptions.QueueLimit = myOptions.QueueLimit;
+        fixedWindowOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+// Limitação global
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpcontext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpcontext.User.Identity?.Name ?? httpcontext.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = 2,
+                QueueLimit = 0,
+                Window = TimeSpan.FromSeconds(10)
+            }));
+});
+
+// 10. Versionamento de API
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
+})
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+// 11. Logging (Filtro de Logging customizado)
+builder.Services.AddScoped<ApiLoggingFilter>();
+
+// 12. Logging Customizado (Provedor de Logging customizado)
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
+
+// 13. Swagger/OpenAPI (Documentação e Segurança JWT)
+builder.Services.AddEndpointsApiExplorer(); // Necessário para Swagger
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "apicatalogo", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "APICatalogo",
+        Description = "Catálogo de Produtos e Categorias",
+        TermsOfService = new Uri("https://algumenderecoapi.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Matheus Cardoso",
+            Email = "matheusfake@email.com",
+            Url = new Uri("https://matheuscardoso.com.br"),
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Usar sobre LICX exemplo",
+            Url = new Uri("https://algumenderecoapi.com/license"),
+        }
+    });
 
+    // Necessário para acessar endpoints com autenticação JWT via Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -95,142 +211,32 @@ builder.Services.AddSwaggerGen(c =>
             new string[] {}
         }
     });
-
 });
 
-string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection"); // DefaultConnection é o nome da connection string no appsettings.json
-
-// acessar valor de 'appsettings.json': var valor1 = builder.Configuration["chave1"];
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-                    options.UseMySql(mySqlConnection,
-                    ServerVersion.AutoDetect(mySqlConnection)));
-
-// Add Services Identity
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<AppDbContext>()
-                    .AddDefaultTokenProviders();
-
-// Autenticação e Autorização com JWT (JSON Web Tokens)
-
-var secretkey = builder.Configuration["JWT:SecretKey"] ?? throw new ArgumentException("invalid secret key");
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ClockSkew = TimeSpan.Zero,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretkey))
-    };
-});
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-
-    options.AddPolicy("SuperAdminOnly", policy => policy.RequireRole("Admin").RequireClaim("id", "matheus"));
-
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
-
-    options.AddPolicy("ExclusiveOnly", policy => policy.RequireAssertion(context =>
-                        context.User.HasClaim(claim => claim.Type == "id" && claim.Value == "matheus") || context.User.IsInRole("SuperAdmin")));
-});
-
-builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
-{
-    LogLevel = LogLevel.Information
-}));
-
-// Add Rate Limiting
-
-var myOptions = new MyRateLimitOptions();
-
-builder.Configuration.GetSection(MyRateLimitOptions.MyRateLimit).Bind(myOptions);
-
-builder.Services.AddRateLimiter(options => // Exemplo de Rate Limiter por política
-{
-    options.AddFixedWindowLimiter(policyName: "fixedwindow", fixedWindowOptions =>
-    {
-        fixedWindowOptions.PermitLimit = myOptions.PermitLimit;
-        fixedWindowOptions.Window = TimeSpan.FromSeconds(myOptions.Window);
-        fixedWindowOptions.QueueLimit = myOptions.QueueLimit;
-        fixedWindowOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-    });
-    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-});
-
-builder.Services.AddRateLimiter(options => // Exemplo de Rate Limiter Global
-{
-    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-
-    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpcontext =>
-        RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpcontext.User.Identity?.Name ?? httpcontext.Request.Headers.Host.ToString(),
-        factory: partition => new FixedWindowRateLimiterOptions
-        {
-            AutoReplenishment = true,
-            PermitLimit = 2,
-            QueueLimit = 0,
-            Window = TimeSpan.FromSeconds(10)
-        }));
-});
-
-// Add API Versioning
-
-builder.Services.AddApiVersioning(options =>
-{
-    options.DefaultApiVersion = new ApiVersion(1, 0);
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.ReportApiVersions = true;
-    options.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
-}).AddApiExplorer(options =>
-{ 
-    options.GroupNameFormat = "'v'VVV";
-    options.SubstituteApiVersionInUrl = true;
-});
-
-// Add AutoMapper para mapeamento de DTOs
-
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.AddProfile<AutoMapperDTOMappingProfile>();
-});
-
-// registra o perfil de mapeamento
-
+// 14. Construção do App
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
+// Middleware para ambiente de desenvolvimento
 if (app.Environment.IsDevelopment())
 {
+    app.ConfigureExceptionHandler(); // Middleware de tratamento de exceções
     app.UseSwagger();
-    app.UseSwaggerUI();
-    app.ConfigureExceptionHandler(); // middleware de tratamento de exceções
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "APICatalogo v1");
+    });
 }
+
+// 15. Middlewares comuns
 
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseRateLimiter(); // sempre depois do routing
+app.UseRateLimiter(); // Sempre após o routing
 
 app.UseCors("OrigensComAcessoPermitido");
 
 app.UseAuthorization();
-
-// Mapeia Atributos dos Controllers Existentes
 
 app.MapControllers();
 

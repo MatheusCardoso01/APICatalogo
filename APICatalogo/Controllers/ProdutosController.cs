@@ -15,6 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace APICatalogo.Controllers;
 
 [Route("api/[controller]")]
+[ApiConventionType(typeof(DefaultApiConventions))]
 [ApiController]
 public class ProdutosController : ControllerBase
 {
@@ -32,7 +33,7 @@ public class ProdutosController : ControllerBase
     // endpoints
 
     [HttpGet]
-    [Authorize(Policy = "UserOnly")]
+    [Authorize(Roles = "User,Admin")]
     public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAllAsync()
     {
         var produtos = await _uof.ProdutoRepository.GetAllAsync();

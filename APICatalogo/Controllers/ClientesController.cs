@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APICatalogo.Controllers;
 
 [Route("api/[controller]")]
+[ApiConventionType(typeof(DefaultApiConventions))]
 [ApiController]
 public class ClientesController : ControllerBase
 {
