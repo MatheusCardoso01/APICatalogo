@@ -301,3 +301,164 @@ Information: 14 - Now listening on: http://localhost:5179
 Information: 0 - Application started. Press Ctrl+C to shut down.
 Information: 0 - Hosting environment: Development
 Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (91ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`RefreshToken`, `a`.`RefreshTokenExpirityTime`, `a`.`SecurityStamp`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (18ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`Name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`RoleId` = `a0`.`Id`
+WHERE `a`.`UserId` = @__userId_0
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`RefreshToken`, `a`.`RefreshTokenExpirityTime`, `a`.`SecurityStamp`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (19ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `AccessFailedCount` = @p0, `ConcurrencyStamp` = @p1, `Email` = @p2, `EmailConfirmed` = @p3, `LockoutEnabled` = @p4, `LockoutEnd` = @p5, `NormalizedEmail` = @p6, `NormalizedUserName` = @p7, `PasswordHash` = @p8, `PhoneNumber` = @p9, `PhoneNumberConfirmed` = @p10, `RefreshToken` = @p11, `RefreshTokenExpirityTime` = @p12, `SecurityStamp` = @p13, `TwoFactorEnabled` = @p14, `UserName` = @p15
+WHERE `Id` = @p16 AND `ConcurrencyStamp` = @p17;
+SELECT ROW_COUNT();
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Error: 20102 - Failed executing DbCommand (34ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 300), @p4='?' (DbType = Int32), @p5='?' (Size = 300), @p6='?' (Size = 80), @p7='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Produtos` (`ProdutoId`, `CategoriaId`, `DataCadastro`, `Descricao`, `Estoque`, `ImageUrl`, `Nome`, `Preco`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+Error: 10000 - An exception occurred in the database while saving changes for context type 'APICatalogo.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Cannot add or update a child row: a foreign key constraint fails (`catalogodb`.`produtos`, CONSTRAINT `FK_Produtos_Categorias_CategoriaId` FOREIGN KEY (`CategoriaId`) REFERENCES `categorias` (`CategoriaId`) ON DELETE CASCADE)
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 1081
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 131
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 487
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Error: 0 - Ocorreu uma exceção não tratada: Status Code 500
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 20101 - Executed DbCommand (57ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`RefreshToken`, `a`.`RefreshTokenExpirityTime`, `a`.`SecurityStamp`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (53ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='Text', CommandTimeout='30']
+SELECT `a0`.`Name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`RoleId` = `a0`.`Id`
+WHERE `a`.`UserId` = @__userId_0
+Information: 20101 - Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`RefreshToken`, `a`.`RefreshTokenExpirityTime`, `a`.`SecurityStamp`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (18ms) [Parameters=[@p16='?' (Size = 255), @p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p17='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (DbType = Boolean), @p4='?' (DbType = Boolean), @p5='?' (DbType = DateTimeOffset), @p6='?' (Size = 256), @p7='?' (Size = 256), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `AspNetUsers` SET `AccessFailedCount` = @p0, `ConcurrencyStamp` = @p1, `Email` = @p2, `EmailConfirmed` = @p3, `LockoutEnabled` = @p4, `LockoutEnd` = @p5, `NormalizedEmail` = @p6, `NormalizedUserName` = @p7, `PasswordHash` = @p8, `PhoneNumber` = @p9, `PhoneNumberConfirmed` = @p10, `RefreshToken` = @p11, `RefreshTokenExpirityTime` = @p12, `SecurityStamp` = @p13, `TwoFactorEnabled` = @p14, `UserName` = @p15
+WHERE `Id` = @p16 AND `ConcurrencyStamp` = @p17;
+SELECT ROW_COUNT();
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:44:16
+Information: 0 - ModelState: True
+Information: 0 - ####################################################
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `c`.`CategoriaId`, `c`.`ImageUrl`, `c`.`Nome`
+FROM `Categorias` AS `c`
+Information: 0 - ### Executado -> OnActionExecuted
+Information: 0 - ####################################################
+Information: 0 - 15:44:16
+Information: 0 - Status Code: 200
+Information: 0 - ####################################################
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 300), @p4='?' (DbType = Int32), @p5='?' (Size = 300), @p6='?' (Size = 80), @p7='?' (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Produtos` (`ProdutoId`, `CategoriaId`, `DataCadastro`, `Descricao`, `Estoque`, `ImageUrl`, `Nome`, `Preco`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+Information: 20101 - Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (85ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Produtos`
+WHERE `ProdutoId` = @p0;
+SELECT ROW_COUNT();
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (41ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1
+Information: 20101 - Executed DbCommand (16ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+DELETE FROM `Produtos`
+WHERE `ProdutoId` = @p0;
+SELECT ROW_COUNT();
+Information: 14 - Now listening on: https://localhost:7052
+Information: 14 - Now listening on: http://localhost:5179
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\Users\matheus.cardoso\projetos_dotnet\APICatalogo\APICatalogo
+Warning: 0 - You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+Information: 20101 - Executed DbCommand (105ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `p`.`ProdutoId`, `p`.`CategoriaId`, `p`.`DataCadastro`, `p`.`Descricao`, `p`.`Estoque`, `p`.`ImageUrl`, `p`.`Nome`, `p`.`Preco`
+FROM `Produtos` AS `p`
+WHERE `p`.`ProdutoId` = @__id_0
+LIMIT 1

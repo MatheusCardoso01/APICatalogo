@@ -70,6 +70,10 @@ public class ProdutosController : ControllerBase
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
     public async Task<ActionResult<ProdutoDTO>> GetAsync([FromRoute] int id) // [FromRoute] desnecessário
     {
+        if (id <= 0)
+        {
+            return BadRequest("ID de produto inválido");
+        }
 
         var produto = await _uof.ProdutoRepository.GetAsync(p => p.ProdutoId == id);
 

@@ -24,4 +24,7 @@ public class ProdutoDTO
     [Required]
     [StringLength(300)]
     public string? ImageUrl { get; set; }
+
+    [Required]
+    public int CategoriaId { get; set; } // <-- Adicione este campo!
 }
